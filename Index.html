@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
             padding: 0;
@@ -16,84 +16,90 @@
         header {
             background-color: #ff0000;
             color: #fff;
-            padding: 10px 0;
+            padding: 20px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         header h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 2.5em;
+            font-weight: 700;
         }
         header h1 i {
             margin-right: 10px;
         }
         nav {
-            background-color: #333;
+            background-color: #20232a;
             color: #fff;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         nav a {
-            color: #fff;
+            color: #61dafb;
             text-decoration: none;
-            font-size: 1em;
-            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
         }
         nav a:hover {
+            color: #ffffff;
             text-decoration: underline;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
         }
         .video-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
             padding: 0;
             list-style-type: none;
         }
         .video-list-item {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            transition: transform 0.2s ease-in-out;
-            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fafafa;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
         .video-list-item:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         .video-list-item img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
         }
         .video-details {
             padding: 15px;
+            text-align: center;
         }
         .video-details h2 {
-            font-size: 1.2em;
-            margin: 0 0 10px 0;
+            font-size: 1.4em;
+            margin: 0;
             color: #333;
-            text-align: center;
         }
         .footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #20232a;
+            color: #61dafb;
             text-align: center;
-            padding: 10px 0;
+            padding: 15px;
             position: fixed;
             width: 100%;
             bottom: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
         }
         .coin-balance {
-            font-size: 1.2em;
+            font-size: 1.5em;
             margin-bottom: 20px;
+            color: #ff0000;
         }
     </style>
 </head>
@@ -125,6 +131,7 @@
 <script>
     let coinBalance = 0;
     let videoStartTime = null;
+    let watchedTime = 0;
 
     function showVideos() {
         document.getElementById('videos-container').style.display = 'block';
@@ -140,8 +147,8 @@
 
     function getVideos() {
         return [
-            { title: 'Labarina 1', id: 'VwD3NdsLJaI?si=YPhNdbTuBM1VeRSH' },
-            { title: 'Labarina 2', id: '8d7cy3xHXd0?si=Ft8E-lXC_yuMM2aH' }
+            { title: 'Labarina 1', id: 'VwD3NdsLJaI' },
+            { title: 'Labarina 2', id: '8d7cy3xHXd0' }
             // Add more videos here
         ];
     }
@@ -170,6 +177,10 @@
             listItem.appendChild(videoDetails);
 
             listItem.addEventListener('click', () => {
+                if (videoStartTime) {
+                    // Track already ongoing video time
+                    watchedTime += (new Date() - videoStartTime) / 1000; // in seconds
+                }
                 videoStartTime = new Date();
                 window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank');
             });
@@ -180,12 +191,15 @@
 
     function trackVideoTime() {
         if (videoStartTime) {
-            const timeWatched = (new Date() - videoStartTime) / 1000; // in seconds
-            if (timeWatched >= 300) { // 5 minutes
+            watchedTime += (new Date() - videoStartTime) / 1000; // in seconds
+            if (watchedTime >= 300) { // 5 minutes
                 coinBalance += 100;
                 document.getElementById('coin-balance').textContent = coinBalance;
-                videoStartTime = null; // reset timer
+                watchedTime = 0; // reset watched time
+                videoStartTime = null; // reset start time
             }
+            // Update the start time for the next interval check
+            videoStartTime = new Date();
         }
     }
 

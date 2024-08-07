@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Tasks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        header h1 i {
+            margin-right: 10px;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style-type: none;
+        }
+        .video-list-item {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            transition: transform 0.2s ease-in-out;
+            position: relative;
+            cursor: pointer;
+        }
+        .video-list-item:hover {
+            transform: scale(1.02);
+        }
+        .video-list-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .video-details {
+            padding: 15px;
+        }
+        .video-details h2 {
+            font-size: 1.2em;
+            margin: 0 0 10px 0;
+            color: #333;
+            text-align: center;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .coin-balance {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fab fa-youtube"></i> Video Tasks</h1>
+</header>
+
+<nav>
+    <a onclick="showVideos()"><i class="fas fa-video"></i> Videos</a>
+    <a onclick="showCoinBalance()"><i class="fas fa-coins"></i> Balance</a>
+</nav>
+
+<div class="container" id="videos-container">
+    <div class="coin-balance">Coins: <span id="coin-balance">0</span></div>
+    <!-- Videos will be dynamically inserted here -->
+</div>
+
+<div class="container" id="balance-container" style="display: none;">
+    <h2>Your Balance</h2>
+    <p>Coins: <span id="current-balance">0</span></p>
+</div>
+
+<footer class="footer">
+    &copy; 2024 Video Tasks
+</footer>
+
+<script>
+    let coinBalance = 0;
+    let videoStartTime = null;
+
+    function showVideos() {
+        document.getElementById('videos-container').style.display = 'block';
+        document.getElementById('balance-container').style.display = 'none';
+        displayVideos();
+    }
+
+    function showCoinBalance() {
+        document.getElementById('videos-container').style.display = 'none';
+        document.getElementById('balance-container').style.display = 'block';
+        document.getElementById('current-balance').textContent = coinBalance;
+    }
+
+    function getVideos() {
+        return [
+            { title: 'Labarina 1', id: 'VwD3NdsLJaI?si=YPhNdbTuBM1VeRSH' },
+            { title: 'Labarina 2', id: '8d7cy3xHXd0?si=Ft8E-lXC_yuMM2aH' }
+            // Add more videos here
+        ];
+    }
+
+    function displayVideos() {
+        const videos = getVideos();
+        const videosContainer = document.getElementById('videos-container');
+        videosContainer.innerHTML = '';
+
+        videos.forEach((video) => {
+            const listItem = document.createElement('div');
+            listItem.className = 'video-list-item';
+
+            const videoThumbnail = document.createElement('img');
+            videoThumbnail.src = `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`;
+            videoThumbnail.alt = `${video.title} Thumbnail`;
+
+            const videoDetails = document.createElement('div');
+            videoDetails.className = 'video-details';
+
+            const videoTitle = document.createElement('h2');
+            videoTitle.textContent = video.title;
+
+            videoDetails.appendChild(videoTitle);
+            listItem.appendChild(videoThumbnail);
+            listItem.appendChild(videoDetails);
+
+            listItem.addEventListener('click', () => {
+                videoStartTime = new Date();
+                window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank');
+            });
+
+            videosContainer.appendChild(listItem);
+        });
+    }
+
+    function trackVideoTime() {
+        if (videoStartTime) {
+            const timeWatched = (new Date() - videoStartTime) / 1000; // in seconds
+            if (timeWatched >= 300) { // 5 minutes
+                coinBalance += 100;
+                document.getElementById('coin-balance').textContent = coinBalance;
+                videoStartTime = null; // reset timer
+            }
+        }
+    }
+
+    setInterval(trackVideoTime, 1000); // Check every second
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showVideos();
+    });
+</script>
+
+</body>
+</html>

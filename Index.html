@@ -101,7 +101,7 @@
             <div id="player1"></div>
             <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay1">
-                <div>Locked</div>
+                <div></div>
                 <div id="countdown1" class="countdown">00:00:00</div>
             </div>
         </div>
@@ -110,7 +110,7 @@
             <div id="player2"></div>
             <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay2">
-                <div>Locked</div>
+                <div></div>
                 <div id="countdown2" class="countdown">00:00:00</div>
             </div>
         </div>
@@ -119,11 +119,78 @@
             <div id="player3"></div>
             <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay3">
-                <div>Locked</div>
+                <div></div>
                 <div id="countdown3" class="countdown">00:00:00</div>
             </div>
         </div>
     </div>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4a90e2;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #FFFFFF; /* Yellow color for title */
+        }
+        
+        p {
+            color: #ccc;
+        }
+        
+        input {
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #4a90e2;
+            color: #fff;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4a90e2; /* Yellow background for button */
+            color: #ff; /* Black text color for button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #FFFFFG; /* Darker yellow on hover */
+        }
+    </style>
+</head>
+<body>    
+    <h1>Invite Friends!</h1>
+    
+    <p></p>
+    
+    <input type="text" value="https://t.me/iUP_lion_head_Bot" id="inviteLink" aria-label="Invite link">
+    
+    <button onclick="copyLink()" aria-label="Copy invite link">Copy Link</button>
+    
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("inviteLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(copyText.value).then(function() {
+                alert("Link copied to clipboard: " + copyText.value);
+            }).catch(function(err) {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+</body>
+</html>
      <style>
     .payout-section {
         background: linear-gradient(135deg, #4a90e2, #0033cc);
@@ -186,7 +253,7 @@
 
 <!-- Payout Section -->
 <div class="payout-section">
-        <h2>Payout Funds</h2>
+        <h2>Airdrop</h2>
         <form id="payoutForm" class="payout-form">
             <select id="payoutMethod" required>
                 <option value="" disabled selected>Select Payment Method</option>
@@ -194,12 +261,12 @@
                 <option value="Litecoin (LTC)">Litecoin (LTC)</option>
             </select>
             <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
-            <input type="number" id="withdrawAmount" placeholder="Enter Amount Minimum - $100" required />
-            <input type="submit" value="Withdraw Funds" />
+            
+            <input type="submit" value="Send" />
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
-    </div>
+    </div>    
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>

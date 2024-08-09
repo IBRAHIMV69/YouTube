@@ -124,6 +124,82 @@
             </div>
         </div>
     </div>
+     <style>
+    .payout-section {
+        background: linear-gradient(135deg, #4a90e2, #0033cc);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 40px auto;
+        text-align: center;
+        color: #fff;
+    }
+    .payout-section h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .payout-form label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .payout-form input[type="text"],
+    .payout-form select {
+        width: 80%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .payout-form input[type="text"]::placeholder {
+        color: #aaa;
+    }
+    .payout-form button {
+        background: #1f8ef1;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .payout-form button:hover {
+        background: #0056b3;
+        transform: translateY(-4px);
+    }
+    .error-message {
+        color: #ff4d4f;
+        font-size: 16px;
+        margin-top: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<!-- Payout Section -->
+<div class="payout-section">
+        <h2>Payout Funds</h2>
+        <form id="payoutForm" class="payout-form">
+            <select id="payoutMethod" required>
+                <option value="" disabled selected>Select Payment Method</option>
+                <option value="USDT (TRC20)">USDT (TRC20)</option>
+                <option value="Litecoin (LTC)">Litecoin (LTC)</option>
+            </select>
+            <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
+            <input type="number" id="withdrawAmount" placeholder="Enter Amount Minimum - $100" required />
+            <input type="submit" value="Withdraw" />
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+    </div>
+    </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>

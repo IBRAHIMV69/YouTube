@@ -6,9 +6,9 @@
     <title>YouTube Video Tasks</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            color: #fff;
+            font-family: 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle, #4a90e2, #0033cc);
+            color: #f1f1f1;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,49 +16,50 @@
         .balance {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            margin: 16px;
-        }
-        .balance p {
-            margin: 0;
-            font-size: 18px;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            font-weight: bold;
         }
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 16px;
-            padding: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
         }
         .video-task {
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 320px;
         }
         .video-task:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-        .video-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 16px;
-        }
-        .video-thumbnail {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
         }
         iframe {
             border: none;
-            border-bottom: 1px solid #ddd;
+            border-radius: 0 0 12px 12px;
             width: 100%;
             height: 180px;
+        }
+        .video-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 16px;
+            color: #333;
         }
         .lock-overlay {
             position: absolute;
@@ -66,7 +67,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -74,7 +75,7 @@
             justify-content: center;
             font-size: 24px;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 12px;
             visibility: hidden;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -97,9 +98,8 @@
     <div class="video-grid">
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
-             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
-            <p class="video-title">Video 1</p>
             <div id="player1"></div>
+            <p class="video-title">Video 1</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>Locked</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -107,9 +107,8 @@
         </div>
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
-             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
-            <p class="video-title">Video 2</p>
             <div id="player2"></div>
+            <p class="video-title">Video 2</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>Locked</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -117,9 +116,8 @@
         </div>
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
-             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
-            <p class="video-title">Video 3</p>
             <div id="player3"></div>
+            <p class="video-title">Video 3</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>Locked</div>
                 <div id="countdown3" class="countdown">00:00:00</div>

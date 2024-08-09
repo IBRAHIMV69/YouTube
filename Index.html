@@ -99,7 +99,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">Video 1</p>
+            <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>Locked</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -108,7 +108,7 @@
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">Video 2</p>
+            <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>Locked</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -117,7 +117,7 @@
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">Video 3</p>
+            <p class="video-title">$0.01</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>Locked</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -195,7 +195,7 @@
             </select>
             <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
             <input type="number" id="withdrawAmount" placeholder="Enter Amount Minimum - $100" required />
-            <input type="submit" value="Withdraw" />
+            <input type="submit" value="Withdraw Funds" />
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
@@ -263,7 +263,7 @@
         }
 
         function onYouTubeIframeAPIReady() {
-            const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with actual video IDs
+            const videoIds = ['soehOiZMzjs', '9hom7bzhnkk?si=RMY1z3ijlVcVfgM2', 'QzBXXxMe9ZE?si=ahUbWBOZ1e-L8uoV']; // Replace with actual video IDs
             videoIds.forEach((videoId, index) => {
                 new YT.Player(`player${index + 1}`, {
                     height: '180',
@@ -279,7 +279,7 @@
         function onPlayerStateChange(event, videoIndex) {
             if (event.data == YT.PlayerState.ENDED) {
                 // Video has ended
-                updateBalance(0.10);
+                updateBalance(0.01);
                 setLock(videoIndex);
             }
         }

@@ -90,8 +90,8 @@
 
     <div class="video-grid">
         <div class="video-task">
-            class="video-thumbnail" src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
-            <p class="video-title"></p>
+            <img id="videoThumbnail" class="video-thumbnail" src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
+            <p class="video-title">Short description about video</p>
             <div id="player"></div>
         </div>
     </div>
@@ -100,7 +100,23 @@
     <script>
         let player;
         const balanceElement = document.getElementById('balance');
-        let balance = parseFloat(balanceElement.textContent);
+        
+        // Load balance from local storage
+        function loadBalance() {
+            const savedBalance = localStorage.getItem('balance');
+            return savedBalance ? parseFloat(savedBalance) : 1.00;
+        }
+
+        function saveBalance(balance) {
+            localStorage.setItem('balance', balance.toFixed(2));
+        }
+
+        function updateBalance(amount) {
+            let currentBalance = loadBalance();
+            currentBalance += amount;
+            saveBalance(currentBalance);
+            balanceElement.textContent = currentBalance.toFixed(2);
+        }
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -116,10 +132,14 @@
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.ENDED) {
                 // Video has ended
-                balance += 0.10;
-                balanceElement.textContent = balance.toFixed(2);
+                updateBalance(0.10);
             }
         }
+
+        // Initialize balance on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            balanceElement.textContent = loadBalance().toFixed(2);
+        });
     </script>
 </body>
 </html>

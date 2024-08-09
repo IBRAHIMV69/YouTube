@@ -26,26 +26,6 @@
             margin: 0;
             font-size: 18px;
         }
-        .balance input, .balance button {
-            padding: 8px 16px;
-            border-radius: 4px;
-            border: none;
-            outline: none;
-            margin-left: 8px;
-        }
-        .balance input {
-            flex: 1;
-            background: #fff;
-            color: #333;
-        }
-        .balance button {
-            background: #0072ff;
-            color: #fff;
-            cursor: pointer;
-        }
-        .balance button:hover {
-            background: #005bb5;
-        }
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -58,6 +38,7 @@
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
         .video-task:hover {
             transform: scale(1.05);
@@ -68,10 +49,6 @@
             font-weight: bold;
             margin: 16px;
         }
-        .video-description {
-            font-size: 16px;
-            margin: 0 16px 16px;
-        }
         .video-thumbnail {
             width: 100%;
             height: auto;
@@ -80,6 +57,35 @@
         iframe {
             border: none;
             border-bottom: 1px solid #ddd;
+            width: 100%;
+            height: 180px;
+        }
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 8px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lock-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .countdown {
+            margin-top: 16px;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -89,19 +95,42 @@
     </div>
 
     <div class="video-grid">
-        <div class="video-task">
-            <img id="videoThumbnail" class="video-thumbnail" src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
-            <p class="video-title">Short description about video</p>
-            <div id="player"></div>
+        <!-- Video 1 -->
+        <div class="video-task" id="videoTask1">
+             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
+            <p class="video-title">Video 1</p>
+            <div id="player1"></div>
+            <div class="lock-overlay" id="lockOverlay1">
+                <div>Locked</div>
+                <div id="countdown1" class="countdown">00:00:00</div>
+            </div>
+        </div>
+        <!-- Video 2 -->
+        <div class="video-task" id="videoTask2">
+             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
+            <p class="video-title">Video 2</p>
+            <div id="player2"></div>
+            <div class="lock-overlay" id="lockOverlay2">
+                <div>Locked</div>
+                <div id="countdown2" class="countdown">00:00:00</div>
+            </div>
+        </div>
+        <!-- Video 3 -->
+        <div class="video-task" id="videoTask3">
+             src="https://img.youtube.com/vi/soehOiZMzjs/hqdefault.jpg" alt="Video Thumbnail">
+            <p class="video-title">Video 3</p>
+            <div id="player3"></div>
+            <div class="lock-overlay" id="lockOverlay3">
+                <div>Locked</div>
+                <div id="countdown3" class="countdown">00:00:00</div>
+            </div>
         </div>
     </div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let player;
         const balanceElement = document.getElementById('balance');
-        
-        // Load balance from local storage
+
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
             return savedBalance ? parseFloat(savedBalance) : 1.00;
@@ -118,27 +147,74 @@
             balanceElement.textContent = currentBalance.toFixed(2);
         }
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '180',
-                width: '100%',
-                videoId: 'soehOiZMzjs', // Replace with the video ID you want
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
+        function loadLockStatus(videoId) {
+            const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
+            const now = new Date().getTime();
 
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.ENDED) {
-                // Video has ended
-                updateBalance(0.10);
+            if (unlockTime && now < parseInt(unlockTime)) {
+                document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+                startCountdown(parseInt(unlockTime), videoId);
             }
         }
 
-        // Initialize balance on page load
+        function setLock(videoId) {
+            const now = new Date().getTime();
+            const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
+            localStorage.setItem(`lastWatched_${videoId}`, now);
+            localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
+            document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+            startCountdown(unlockDate.getTime(), videoId);
+        }
+
+        function startCountdown(endTime, videoId) {
+            function updateTimer() {
+                const now = new Date().getTime();
+                const timeRemaining = endTime - now;
+
+                if (timeRemaining <= 0) {
+                    document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
+                    clearInterval(timerInterval);
+                } else {
+                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                    document.getElementById(`countdown${videoId}`).textContent = 
+                        String(hours).padStart(2, '0') + ':' + 
+                        String(minutes).padStart(2, '0') + ':' + 
+                        String(seconds).padStart(2, '0');
+                }
+            }
+            updateTimer(); // initial call
+            const timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with actual video IDs
+            videoIds.forEach((videoId, index) => {
+                new YT.Player(`player${index + 1}`, {
+                    height: '180',
+                    width: '100%',
+                    videoId: videoId,
+                    events: {
+                        'onStateChange': (event) => onPlayerStateChange(event, index + 1)
+                    }
+                });
+            });
+        }
+
+        function onPlayerStateChange(event, videoIndex) {
+            if (event.data == YT.PlayerState.ENDED) {
+                // Video has ended
+                updateBalance(0.10);
+                setLock(videoIndex);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             balanceElement.textContent = loadBalance().toFixed(2);
+            for (let i = 1; i <= 3; i++) {
+                loadLockStatus(i);
+            }
         });
     </script>
 </body>

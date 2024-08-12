@@ -201,7 +201,7 @@
 
         // Function to increase the balance
         function increaseBalance() {
-            balance = parseInt(balance) + 0.10;
+            balance = parseInt(balance) ;
             document.getElementById('balance').innerText = balance;
             localStorage.setItem('balance', balance); // Save the new balance in localStorage
         }

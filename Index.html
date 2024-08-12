@@ -194,24 +194,6 @@
         </form>
     </div>
 
-    <script>
-        // Check if there's a balance in localStorage and set it
-        let balance = localStorage.getItem('balance') || 0;
-        document.getElementById('balance').innerText = balance;
-
-        // Function to increase the balance
-        function increaseBalance() {
-            balance = parseInt(balance) ;
-            document.getElementById('balance').innerText = balance;
-            localStorage.setItem('balance', balance); // Save the new balance in localStorage
-        }
-
-        // Add event listener to the button
-        document.getElementById('sendButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default link action
-            increaseBalance();
-            window.location.href = this.href; // Then, follow the link
-        });
     </script>
 </html>
     

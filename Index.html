@@ -185,8 +185,8 @@
     <!-- Payout Section -->
     <div class="payout-section">
         <h2>Airdrop</h2>
-        <div class="balance">🔑<span id="balance">0</span></div> <!-- Display balance below title -->
-        <p>Get your rewards instantly by clicking the send button below.</p>
+        <div class="balance">$0.01<span id="balance">0</span></div> <!-- Display balance below title -->
+        <p>Get your rewards instantly by clicking the button below.</p>
         <form id="payoutForm" class="payout-form">
             <!-- Link styled as a button -->
             <a href="https://example.com/airdrop" id="sendButton" class="button">Send</a>
@@ -201,7 +201,7 @@
 
         // Function to increase the balance
         function increaseBalance() {
-            balance = parseInt(balance) + 1;
+            balance = parseInt(balance) + 0.01;
             document.getElementById('balance').innerText = balance;
             localStorage.setItem('balance', balance); // Save the new balance in localStorage
         }

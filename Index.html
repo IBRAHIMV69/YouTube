@@ -143,6 +143,12 @@
             margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
+        .balance {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
         .payout-section p {
             font-size: 18px;
             margin-bottom: 30px;
@@ -150,7 +156,7 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
         .payout-form a.button {
-            background: #fffff;
+            background: #09D260, #0033cc;
             color: #fff;
             border: none;
             border-radius: 10px;
@@ -165,6 +171,7 @@
         }
         .payout-form a.button:hover {
             background: #0056b3;
+            color: #fff;
             transform: translateY(-4px);
         }
         .error-message {
@@ -177,15 +184,36 @@
 
     <!-- Payout Section -->
     <div class="payout-section">
-        <h2>Daily Task</h2>
-        <p>Each task is a valuable asset</p>
+        <h2>Airdrop</h2>
+        <div class="balance">🔑<span id="balance">0</span></div> <!-- Display balance below title -->
+        <p>Get your rewards instantly by clicking the send button below.</p>
         <form id="payoutForm" class="payout-form">
             <!-- Link styled as a button -->
-            <a href="https://t.me/Sweet_earn" class="button">Join Our TG Channel</a>
+            <a href="https://example.com/airdrop" id="sendButton" class="button">Send</a>
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
-    </html>
+
+    <script>
+        // Check if there's a balance in localStorage and set it
+        let balance = localStorage.getItem('balance') || 0;
+        document.getElementById('balance').innerText = balance;
+
+        // Function to increase the balance
+        function increaseBalance() {
+            balance = parseInt(balance) + 1;
+            document.getElementById('balance').innerText = balance;
+            localStorage.setItem('balance', balance); // Save the new balance in localStorage
+        }
+
+        // Add event listener to the button
+        document.getElementById('sendButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link action
+            increaseBalance();
+            window.location.href = this.href; // Then, follow the link
+        });
+    </script>
+</html>
     
     <style>
         body {

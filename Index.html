@@ -318,7 +318,7 @@
             copyText.setSelectionRange(0, 99999);
 
             navigator.clipboard.writeText(copyText.value).then(function() {
-                alert("Link copied to clipboard: " + copyText.value);
+                ("Link copied to clipboard: " + copyText.value);
             }).catch(function(err) {
                 console.error("Failed to copy: ", err);
             });

@@ -56,7 +56,7 @@
             height: 180px;
         }
         .video-title {
-            font-size: 22px;
+            font-size: 15px;
             font-weight: bold;
             margin: 16px;
             color: #333;
@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="balance">
-        <p><span id="balance">0</span>0</p>
+        <p><span id="balance">$</span>1</p>
     </div>
 
     <div class="video-grid">
@@ -411,7 +411,7 @@
 
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
-            return savedBalance ? parseFloat(savedBalance) : 0;
+            return savedBalance ? parseFloat(savedBalance) : 1;
         }
 
         function saveBalance(balance) {
@@ -483,7 +483,7 @@
         function onPlayerStateChange(event, videoIndex) {
             if (event.data == YT.PlayerState.ENDED) {
                 // Video has ended
-                updateBalance(100000);
+                updateBalance(0.05);
                 setLock(videoIndex);
             }
         }

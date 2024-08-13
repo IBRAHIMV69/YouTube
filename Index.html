@@ -403,7 +403,108 @@
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
-    </div>    
+    </div>
+
+<html>
+    <style>
+        .payout-section {
+            background: linear-gradient(135deg, #09D260, #0033cc);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            color: #fff;
+        }
+        .payout-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .payout-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #dcdcdc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .payout-form a.button {
+            background: #09D260, #0033cc; /* YouTube red */
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            margin-bottom: 20px; /* Added margin for spacing */
+        }
+        .payout-form a.button svg {
+            margin-right: 10px; /* Spacing between icon and text */
+        }
+        .payout-form a.button:hover {
+            transform: translateY(-4px);
+        }
+        .payout-form a.youtube-button:hover {
+            background: #cc0000;
+        }
+        .payout-form a.telegram-button {
+            background: #09D260, #0033cc; /* Telegram blue */
+        }
+        .payout-form a.telegram-button:hover {
+            background: #007ab8; /* Darker blue on hover */
+        }
+        .payout-form a.x-button {
+            background: #09D260, #0033cc; /* Twitter blue */
+        }
+        .payout-form a.x-button:hover {
+            background: #0c85d0; /* Darker blue on hover */
+        }
+        .error-message {
+            color: #ff4d4f;
+            font-size: 16px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+    <!-- Payout Section -->
+    <div class="payout-section">
+        <h2>Sweet Earn</h2>
+        <p>🎁</p>
+        <form id="payoutForm" class="payout-form">
+            <!-- YouTube Button -->
+            <a href="https://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzKhttps://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzK" class="button youtube-button">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M19.615 3.184c-.862-.65-2.623-.918-5.56-.918h-3.909c-2.937 0-4.698.268-5.561.918-.863.65-1.322 1.707-1.322 3.621v7.377c0 1.914.459 2.97 1.322 3.621.863.65 2.623.918 5.561.918h3.909c2.937 0 4.698-.268 5.561-.918.863-.65 1.322-1.707 1.322-3.621v-7.377c0-1.914-.459-2.97-1.322-3.621zm-9.615 10.316v-7l6 3.5-6 3.5z"/>
+                </svg>
+                Subscribe Our YouTube Channel 
+            </a>
+            <!-- Telegram Button -->
+            <a href="https://t.me/Sweet_earn" class="button telegram-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm5.34 8.484l-1.736 8.191c-.13.582-.472.724-1.006.45l-2.769-2.043-1.336 1.29c-.147.147-.271.271-.553.271l.198-2.808 5.105-4.59c.224-.198-.049-.309-.347-.111l-6.311 3.968-2.72-.85c-.591-.183-.604-.591.123-.874l10.625-4.08c.495-.183.927.111.765.874z"/>
+                </svg>
+                Join Our TG Channel 
+            </a>
+            <!-- X Button -->
+            <a href="https://x.com/yourprofile" class="button x-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.408 17.25l-4.248-4.283-4.283 4.283-1.157-1.157 4.283-4.283-4.283-4.248 1.157-1.157 4.283 4.283 4.248-4.283 1.157 1.157-4.283 4.283 4.283 4.283-1.157 1.157z"/>
+                </svg>
+                Follow Our X  
+            </a>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+    </div>
+</html>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>

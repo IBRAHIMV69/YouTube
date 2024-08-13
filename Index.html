@@ -99,7 +99,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">100,000 coins</p>
+            <p class="video-title">1,000,000 coins</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div></div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -411,7 +411,7 @@
 
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
-            return savedBalance ? parseFloat(savedBalance) : 100,000;
+            return savedBalance ? parseFloat(savedBalance) : 1,000,000;
         }
 
         function saveBalance(balance) {
@@ -483,7 +483,7 @@
         function onPlayerStateChange(event, videoIndex) {
             if (event.data == YT.PlayerState.ENDED) {
                 // Video has ended
-                updateBalance(100,000);
+                updateBalance(1,000,000);
                 setLock(videoIndex);
             }
         }

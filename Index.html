@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="balance">
-        <p><span id="balance">$</span>1</p>
+        <p>$<span id="balance">1.00</span></p>
     </div>
 
     <div class="video-grid">
@@ -411,7 +411,7 @@
 
         function loadBalance() {
             const savedBalance = localStorage.getItem('balance');
-            return savedBalance ? parseFloat(savedBalance) : 1;
+            return savedBalance ? parseFloat(savedBalance) : 1.00;
         }
 
         function saveBalance(balance) {

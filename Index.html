@@ -598,7 +598,7 @@
 
         function setLock(videoId) {
             const now = new Date().getTime();
-            const unlockDate = new Date(now + 24 * 60 * 60 * 1000); // 24 hours
+            const unlockDate = new Date(now + 20 * 60 * 60 * 1000); // 20 hours
             localStorage.setItem(`lastWatched_${videoId}`, now);
             localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
             document.getElementById(`lockOverlay${videoId}`).classList.add('visible');

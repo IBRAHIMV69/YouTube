@@ -433,7 +433,7 @@
     <h2>Airdrop</h2>
     <p class="balance">🔑<span id="balance">0</span></p>
     <p>Withdrawal Conditions</p>
-    <p>You must have at least 1 key before you can withdrawal Each key has a maximum number of withdrawals from your account.</p>
+    <p>You must have at least 1 key before you can withdrawal Each key has a maximum number of withdrawals from your account balance.</p>
     <form id="payoutForm" class="payout-form">
         <select id="payoutMethod" required>
             <option value="" disabled selected>Select Payment Method</option>
@@ -599,7 +599,7 @@
 
         function setLock(videoId) {
             const now = new Date().getTime();
-            const unlockDate = new Date(now + 20 * 60 * 60 * 1000); // 20 hours
+            const unlockDate = new Date(now + 12 * 60 * 60 * 1000); // 12 hours
             localStorage.setItem(`lastWatched_${videoId}`, now);
             localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
             document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
@@ -645,7 +645,7 @@
         function onPlayerStateChange(event, videoIndex) {
             if (event.data == YT.PlayerState.ENDED) {
                 // Video has ended
-                updateBalance(1.00);
+                updateBalance(1.25);
                 setLock(videoIndex);
             }
         }

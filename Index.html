@@ -88,6 +88,47 @@
             margin-top: 16px;
             font-size: 18px;
         }
+        .promo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #f1f1f1;
+}
+
+.promo-section input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 110px;
+    text-align: center;
+}
+
+.promo-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.promo-section button:hover {
+    background: ;
+}
+
+.promo-section p {
+    margin-top: 10px;
+    font-size: 16px;
+}
     </style>
 </head>
 <body>
@@ -124,6 +165,12 @@
                 <div>⏱️</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
             </div>
+        </div>
+        <div class="promo-section">
+            <p>Watch the live, find the code and paste it here</p>
+    <input type="text" id="promoCodeInput" placeholder="Enter the code">
+    <button id="applyPromoBtn">Submit</button>
+    <p id="promoMessage"></p>
         </div>
     </div>
 
@@ -655,6 +702,25 @@
                 loadLockStatus(i);
             }
         });
+        document.getElementById('applyPromoBtn').addEventListener('click', () => {
+    const promoCode = document.getElementById('promoCodeInput').value.trim();
+    const validPromoCodes = ['111222', '11133', '11144', '11155', '11166'];
+    const today = new Date().toDateString();
+    const lastUsedDate = localStorage.getItem(`promo_${promoCode}_date`);
+    
+    if (validPromoCodes.includes(promoCode)) {
+        if (lastUsedDate === today) {
+            document.getElementById('promoMessage').textContent = '';
+        } else {
+            updateBalance(2.00);
+            localStorage.setItem(`promo_${promoCode}_date`, today);
+            document.getElementById('promoMessage').textContent = '';
+        }
+    } else {
+        document.getElementById('promoMessage').textContent = '';
+    }
+    document.getElementById('promoCodeInput').value = '';
+});
     </script>
 </body>
 </html>

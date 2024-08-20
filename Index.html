@@ -296,24 +296,6 @@
             window.open('https://www.highratecpm.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586', '_blank');
         });
 
-        // Show custom alert on page load
-        window.addEventListener('load', function() {
-            const count = localStorage.getItem('clickCount');
-            if (count) {
-                showAlert(`Button clicked ${count} times. Once you reach the required times, we will instantly send the key🔑 to your Airdrop`);
-            }
-        });
-
-        // Function to show custom alert
-        function showAlert(message) {
-            document.getElementById('alertMessage').innerText = message;
-            document.getElementById('customAlert').style.display = 'block';
-        }
-
-        // Function to close custom alert
-        function closeAlert() {
-            document.getElementById('customAlert').style.display = 'none';
-        }
     </script>
 </body>
 </html>
@@ -487,7 +469,7 @@
 <!-- Payout Section -->
 <div class="payout-section">
     <h2>Withdraw</h2>
-    <p>You must get key before you can withdrawal.</p>
+    <p>**Minimum Amount for Withdrawal:** Please ensure your withdrawal request is $500 or above.</p>
     <form id="payoutForm" class="payout-form">
         <select id="payoutMethod" required>
             <option value="" disabled selected>Select Payment Method</option>

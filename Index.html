@@ -129,6 +129,33 @@
     margin-top: 10px;
     font-size: 16px;
 }
+
+ .button-container {
+            padding: 30px;
+            max-width: 400px;
+            margin: 40px auto;
+            text-align: center;
+        }
+        .payout-form button {
+            background: linear-gradient(135deg, #09D260, #0056b3);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 0;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 10px;
+        }
+        .payout-form button:hover {
+            background: linear-gradient(135deg, #08a34f, #0047a3);
+            transform: translateY(-2px);
+        }
+        .payout-form .goto-games {
+            background: linear-gradient(90deg, #ff7a00, #ff5200);
+        }
     </style>
 </head>
 <body>
@@ -172,6 +199,15 @@
     <button id="applyPromoBtn">Submit</button>
     <p id="promoMessage"></p>
         </div>
+    </div>
+
+    <!-- Button Container -->
+    <div class="button-container">
+        <form id="payoutForm" class="payout-form" action="javascript:void(0);">
+            <a href="https://example.com/redeem" target="_blank">
+                <button type="button">Redeem</button>
+            </a>
+        </form>
     </div>
 
     <!DOCTYPE html>

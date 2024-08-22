@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="balance">
-        <p>$<span id="balance">1.00</span></p>
+        <p>🪙<span id="balance">0</span></p>
     </div>
     
         <p></p>
@@ -570,91 +570,91 @@
     <script>
         const balanceElement = document.getElementById('balance');
 
-        function loadBalance() {
-            const savedBalance = localStorage.getItem('balance');
-            return savedBalance ? parseFloat(savedBalance) : 1.00;
+function loadBalance() {
+    const savedBalance = localStorage.getItem('balance');
+    return savedBalance ? parseFloat(savedBalance) : 0;
+}
+
+function saveBalance(balance) {
+    localStorage.setItem('balance', balance);
+}
+
+function updateBalance(amount) {
+    let currentBalance = loadBalance();
+    currentBalance += amount;
+    saveBalance(currentBalance);
+    balanceElement.textContent = currentBalance.toLocaleString();
+}
+
+function loadLockStatus(videoId) {
+    const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
+    const now = new Date().getTime();
+
+    if (unlockTime && now < parseInt(unlockTime)) {
+        document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+        startCountdown(parseInt(unlockTime), videoId);
+    }
+}
+
+function setLock(videoId) {
+    const now = new Date().getTime();
+    const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
+    localStorage.setItem(`lastWatched_${videoId}`, now);
+    localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
+    document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+    startCountdown(unlockDate.getTime(), videoId);
+}
+
+function startCountdown(endTime, videoId) {
+    function updateTimer() {
+        const now = new Date().getTime();
+        const timeRemaining = endTime - now;
+
+        if (timeRemaining <= 0) {
+            document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
+            clearInterval(timerInterval);
+        } else {
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            document.getElementById(`countdown${videoId}`).textContent = 
+                String(hours).padStart(2, '0') + ':' + 
+                String(minutes).padStart(2, '0') + ':' + 
+                String(seconds).padStart(2, '0');
         }
+    }
+    updateTimer(); // initial call
+    const timerInterval = setInterval(updateTimer, 1000);
+}
 
-        function saveBalance(balance) {
-            localStorage.setItem('balance', balance.toFixed(2));
-        }
-
-        function updateBalance(amount) {
-            let currentBalance = loadBalance();
-            currentBalance += amount;
-            saveBalance(currentBalance);
-            balanceElement.textContent = currentBalance.toFixed(2);
-        }
-
-        function loadLockStatus(videoId) {
-            const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
-            const now = new Date().getTime();
-
-            if (unlockTime && now < parseInt(unlockTime)) {
-                document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-                startCountdown(parseInt(unlockTime), videoId);
-            }
-        }
-
-        function setLock(videoId) {
-            const now = new Date().getTime();
-            const unlockDate = new Date(now + 22 * 60 * 60 * 1000); // 22 hours
-            localStorage.setItem(`lastWatched_${videoId}`, now);
-            localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
-            document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-            startCountdown(unlockDate.getTime(), videoId);
-        }
-
-        function startCountdown(endTime, videoId) {
-            function updateTimer() {
-                const now = new Date().getTime();
-                const timeRemaining = endTime - now;
-
-                if (timeRemaining <= 0) {
-                    document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
-                    clearInterval(timerInterval);
-                } else {
-                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                    document.getElementById(`countdown${videoId}`).textContent = 
-                        String(hours).padStart(2, '0') + ':' + 
-                        String(minutes).padStart(2, '0') + ':' + 
-                        String(seconds).padStart(2, '0');
-                }
-            }
-            updateTimer(); // initial call
-            const timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function onYouTubeIframeAPIReady() {
-            const videoIds = ['PQtQz5t17eU', 'qzQvUKavtL0', 'ot4WNTK1ngY']; // Replace with actual video IDs
-            videoIds.forEach((videoId, index) => {
-                new YT.Player(`player${index + 1}`, {
-                    height: '180',
-                    width: '100%',
-                    videoId: videoId,
-                    events: {
-                        'onStateChange': (event) => onPlayerStateChange(event, index + 1)
-                    }
-                });
-            });
-        }
-
-        function onPlayerStateChange(event, videoIndex) {
-            if (event.data == YT.PlayerState.ENDED) {
-                // Video has ended
-                updateBalance(1.00);
-                setLock(videoIndex);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            balanceElement.textContent = loadBalance().toFixed(2);
-            for (let i = 1; i <= 3; i++) {
-                loadLockStatus(i);
+function onYouTubeIframeAPIReady() {
+    const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with actual video IDs
+    videoIds.forEach((videoId, index) => {
+        new YT.Player(`player${index + 1}`, {
+            height: '180',
+            width: '100%',
+            videoId: videoId,
+            events: {
+                'onStateChange': (event) => onPlayerStateChange(event, index + 1)
             }
         });
+    });
+}
+
+function onPlayerStateChange(event, videoIndex) {
+    if (event.data == YT.PlayerState.ENDED) {
+        // Video has ended
+        updateBalance(400000);
+        setLock(videoIndex);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    balanceElement.textContent = loadBalance().toLocaleString();
+    for (let i = 1; i <= 3; i++) {
+        loadLockStatus(i);
+    }
+});
     </script>
 </body>
 </html>

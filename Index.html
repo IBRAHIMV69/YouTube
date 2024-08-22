@@ -128,12 +128,87 @@
 .promo-section p {
     margin-top: 10px;
     font-size: 16px;
-            }
+      }
+       .code {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ffffff; /* Gold border for emphasis */
+        }
+        .pyout-section {
+        background: linear-gradient(135deg, #09D260, #0033cc);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 40px auto;
+        text-align: center;
+        color: #fff;
+    }
+    .payout-section h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .payout-form label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .payout-form input[type="text"],
+    .payout-form select {
+        width: 80%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .payout-form input[type="text"]::placeholder {
+        color: #aaa;
+    }
+    .payout-form button {
+        background: linear-gradient(135deg, #09D260, #0033cc);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .payout-form button:hover {
+        background: #09D260;
+        transform: translateY(-4px);
+    }
+    .error-message {
+        color: #ff4d4f;
+        font-size: 16px;
+        margin-top: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .connection-message {
+        color: #ffffff; /* Green color for success message */
+        font-size: 16px;
+        margin-top: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
     </style>
 </head>
 <body>
     <div class="balance">
-        <p>$<span id="balance">1.00</span></p>
+        <p>🪙<span id="balance">0</span></p>
     </div>
     
         <p></p>
@@ -142,7 +217,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">400,000</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -151,7 +226,7 @@
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">400,000</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>⏱️</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -160,7 +235,7 @@
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">400,000</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>⏱️</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -173,141 +248,30 @@
     <p id="promoMessage"></p>
         </div>
     </div>
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payout Section</title>
-    <style>
-        .payout-section {
-            background: linear-gradient(135deg, #09D260, #0033cc);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
-            margin: 40px auto;
-            text-align: center;
-            color: #fff;
-        }
-        .payout-section h2 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .payout-section p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #dcdcdc;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        .payout-form a.button {
-            background: linear-gradient(135deg, #09D260, #0033cc);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-        }
-        .payout-form a.button:hover {
-            background: #0c85d0;
-            transform: translateY(-4px);
-        }
-        .error-message {
-            color: #ff4d4f;
-            font-size: 16px;
-            margin-top: 20px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-        /* Custom alert styling */
-        .custom-alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #058E41;
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            display: none;
-            text-align: center;
-        }
-        .custom-alert button {
-            background-color: #034F24;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+    
     <!-- Payout Section -->
     <div class="payout-section">
-        <h2>AirDrop Keys</h2>
-        <p>Get key for visiting sites of advertisers.</p>
+        <h2>Airdrop</h2>
+        <div id="codeContainer" class="code"></div> <!-- Code will be displayed here -->
+        <p>Get your rewards instantly by clicking the send button below.</p>
         <form id="payoutForm" class="payout-form">
             <!-- Link styled as a button -->
-            <a href="#" class="button" id="sendButton">Start viewing</a>
+            <a href="https://example.com/airdrop" class="button" onclick="handleButtonClick()">Start viewing</a>
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
+    
+    <!-- Payout Section -->
+<div class="payout-section">
+    <p id="walletAddressDisplay" class="connection-message"></p> <!-- Display wallet address here -->
+    <p id="statusMessage" class="connection-message"></p> <!-- Display connection status here -->
+    <form id="payoutForm" class="payout-form">
+        <button type="submit">Check the task</button>
+        <p id="errorMessage" class="error-message"></p>
+    </form>
+</div>
 
-    <!-- Custom Alert -->
-    <div id="customAlert" class="custom-alert">
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()">OK</button>
-    </div>
-
-    <script>
-        // Initialize click count from localStorage
-        let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
-
-        // Handle button click
-        document.getElementById('sendButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            
-            // Increment the click count and store it in localStorage
-            clickCount++;
-            localStorage.setItem('clickCount', clickCount);
-            
-            // Open the URL in a new tab
-            window.open('https://www.highratecpm.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586', '_blank');
-        });
-
-        // Show custom alert on page load
-        window.addEventListener('load', function() {
-            const count = localStorage.getItem('clickCount');
-            if (count) {
-                showAlert(`Button clicked ${count} times. Once you reach the required times, we will instantly send the key🔑 to your Airdrop`);
-            }
-        });
-
-        // Function to show custom alert
-        function showAlert(message) {
-            document.getElementById('alertMessage').innerText = message;
-            document.getElementById('customAlert').style.display = 'block';
-        }
-
-        // Function to close custom alert
-        function closeAlert() {
-            document.getElementById('customAlert').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+    
     
     <style>
         body {
@@ -375,144 +339,7 @@
     </script>
 </body>
 </html>
-     <style>
-    .payout-section {
-        background: linear-gradient(135deg, #09D260, #0033cc);
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        max-width: 600px;
-        margin: 40px auto;
-        text-align: center;
-        color: #fff;
-    }
-    .payout-section h2 {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    .payout-form label {
-        font-size: 18px;
-        display: block;
-        margin-bottom: 10px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    }
-    .payout-form input[type="text"],
-    .payout-form select {
-        width: 80%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .payout-form input[type="text"]::placeholder {
-        color: #aaa;
-    }
-    .payout-form button {
-        background: linear-gradient(135deg, #09D260, #0033cc);
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        padding: 15px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .payout-form button:hover {
-        background: #09D260;
-        transform: translateY(-4px);
-    }
-    .error-message {
-        color: #ff4d4f;
-        font-size: 16px;
-        margin-top: 20px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Modal Styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-    }
-    .modal-content {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .modal-content p {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-    .modal-content button {
-        background-color: #09D260;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    .modal-content button:hover {
-        background-color: #0c85d0;
-    }
-</style>
-
-<!-- Payout Section -->
-<div class="payout-section">
-    <h2>Airdrop</h2>
-    <p class="balance">🔑<span id="balance">0</span></p>
-    <p>You must get key before you can withdrawal.</p>
-    <form id="payoutForm" class="payout-form">
-        <select id="payoutMethod" required>
-            <option value="" disabled selected>Select Payment Method</option>
-            <option value="USDT (TRC20)">USDT (TRC20)</option>
-            <option value="Litecoin (LTC)">Litecoin (LTC)</option>
-        </select>
-        <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
-        <button type="submit">Send request</button>
-        <p id="errorMessage" class="error-message"></p>
-    </form>
-</div>
-
-<!-- Modal -->
-<div id="customModal" class="modal">
-    <div class="modal-content">
-        <p>You don't have any key. Go and earn a key to withdraw your balance.</p>
-        <button id="closeModal">OK</button>
-    </div>
-</div>
-
-<script>
-    document.getElementById('payoutForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
-        
-        // Show custom modal
-        document.getElementById('customModal').style.display = 'flex';
-    });
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-        // Hide the modal
-        document.getElementById('customModal').style.display = 'none';
-    });
-</script>
+     
     <style>
         .payout-section {
             background: linear-gradient(135deg, #09D260, #0033cc);
@@ -617,93 +444,93 @@
     <script>
         const balanceElement = document.getElementById('balance');
 
-        function loadBalance() {
-            const savedBalance = localStorage.getItem('balance');
-            return savedBalance ? parseFloat(savedBalance) : 1.00;
+function loadBalance() {
+    const savedBalance = localStorage.getItem('balance');
+    return savedBalance ? parseFloat(savedBalance) : 0;
+}
+
+function saveBalance(balance) {
+    localStorage.setItem('balance', balance);
+}
+
+function updateBalance(amount) {
+    let currentBalance = loadBalance();
+    currentBalance += amount;
+    saveBalance(currentBalance);
+    balanceElement.textContent = currentBalance.toLocaleString();
+}
+
+function loadLockStatus(videoId) {
+    const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
+    const now = new Date().getTime();
+
+    if (unlockTime && now < parseInt(unlockTime)) {
+        document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+        startCountdown(parseInt(unlockTime), videoId);
+    }
+}
+
+function setLock(videoId) {
+    const now = new Date().getTime();
+    const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
+    localStorage.setItem(`lastWatched_${videoId}`, now);
+    localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
+    document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+    startCountdown(unlockDate.getTime(), videoId);
+}
+
+function startCountdown(endTime, videoId) {
+    function updateTimer() {
+        const now = new Date().getTime();
+        const timeRemaining = endTime - now;
+
+        if (timeRemaining <= 0) {
+            document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
+            clearInterval(timerInterval);
+        } else {
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            document.getElementById(`countdown${videoId}`).textContent = 
+                String(hours).padStart(2, '0') + ':' + 
+                String(minutes).padStart(2, '0') + ':' + 
+                String(seconds).padStart(2, '0');
         }
+    }
+    updateTimer(); // initial call
+    const timerInterval = setInterval(updateTimer, 1000);
+}
 
-        function saveBalance(balance) {
-            localStorage.setItem('balance', balance.toFixed(2));
-        }
-
-        function updateBalance(amount) {
-            let currentBalance = loadBalance();
-            currentBalance += amount;
-            saveBalance(currentBalance);
-            balanceElement.textContent = currentBalance.toFixed(2);
-        }
-
-        function loadLockStatus(videoId) {
-            const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
-            const now = new Date().getTime();
-
-            if (unlockTime && now < parseInt(unlockTime)) {
-                document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-                startCountdown(parseInt(unlockTime), videoId);
-            }
-        }
-
-        function setLock(videoId) {
-            const now = new Date().getTime();
-            const unlockDate = new Date(now + 22 * 60 * 60 * 1000); // 22 hours
-            localStorage.setItem(`lastWatched_${videoId}`, now);
-            localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
-            document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-            startCountdown(unlockDate.getTime(), videoId);
-        }
-
-        function startCountdown(endTime, videoId) {
-            function updateTimer() {
-                const now = new Date().getTime();
-                const timeRemaining = endTime - now;
-
-                if (timeRemaining <= 0) {
-                    document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
-                    clearInterval(timerInterval);
-                } else {
-                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                    document.getElementById(`countdown${videoId}`).textContent = 
-                        String(hours).padStart(2, '0') + ':' + 
-                        String(minutes).padStart(2, '0') + ':' + 
-                        String(seconds).padStart(2, '0');
-                }
-            }
-            updateTimer(); // initial call
-            const timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function onYouTubeIframeAPIReady() {
-            const videoIds = ['PQtQz5t17eU', 'qzQvUKavtL0', 'ot4WNTK1ngY']; // Replace with actual video IDs
-            videoIds.forEach((videoId, index) => {
-                new YT.Player(`player${index + 1}`, {
-                    height: '180',
-                    width: '100%',
-                    videoId: videoId,
-                    events: {
-                        'onStateChange': (event) => onPlayerStateChange(event, index + 1)
-                    }
-                });
-            });
-        }
-
-        function onPlayerStateChange(event, videoIndex) {
-            if (event.data == YT.PlayerState.ENDED) {
-                // Video has ended
-                updateBalance(1.00);
-                setLock(videoIndex);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            balanceElement.textContent = loadBalance().toFixed(2);
-            for (let i = 1; i <= 3; i++) {
-                loadLockStatus(i);
+function onYouTubeIframeAPIReady() {
+    const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with actual video IDs
+    videoIds.forEach((videoId, index) => {
+        new YT.Player(`player${index + 1}`, {
+            height: '180',
+            width: '100%',
+            videoId: videoId,
+            events: {
+                'onStateChange': (event) => onPlayerStateChange(event, index + 1)
             }
         });
+    });
+}
 
-        document.getElementById('applyPromoBtn').addEventListener('click', () => {
+function onPlayerStateChange(event, videoIndex) {
+    if (event.data == YT.PlayerState.ENDED) {
+        // Video has ended
+        updateBalance(400000);
+        setLock(videoIndex);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    balanceElement.textContent = loadBalance().toLocaleString();
+    for (let i = 1; i <= 3; i++) {
+        loadLockStatus(i);
+    }
+});
+
+      document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();
     const validPromoCodes = ['11122', '11133', '11144', '11155', '11166'];
     const today = new Date().toDateString();
@@ -713,7 +540,7 @@
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'This code has already been used today.';
         } else {
-            updateBalance(2.00);
+            updateBalance(500000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'Promo code applied successfully! $2.00 has been added to your balance.';
         }
@@ -722,7 +549,77 @@
     }
     document.getElementById('promoCodeInput').value = '';
 });
+        // Codes array
+        const codes = ["111222", "111333", "111444", "111555", "111666"];
+        
+        // Function to handle the button click
+        function handleButtonClick() {
+            let currentIndex = localStorage.getItem('currentIndex');
+            if (currentIndex === null) {
+                currentIndex = 0; // Start with the first code if no index is stored
+            } else {
+                currentIndex = parseInt(currentIndex);
+            }
+
+            // Get the current code to show and save it in local storage
+            const currentCode = codes[currentIndex];
+            localStorage.setItem('currentCode', currentCode);
+            
+            // Update the index for the next visit
+            currentIndex = (currentIndex + 1) % codes.length;
+            localStorage.setItem('currentIndex', currentIndex);
+        }
+
+        // Display the code stored in local storage on page load
+        window.onload = function() {
+            const currentCode = localStorage.getItem('currentCode');
+            if (currentCode) {
+                document.getElementById('codeContainer').innerText = currentCode;
+            } else {
+                // Clear the code container if no code is available
+                document.getElementById('codeContainer').innerText = '';
+            }
+        };
+        
+            // Load saved wallet address and connection status from local storage if available
+window.addEventListener('load', function() {
+    const savedAddress = localStorage.getItem('walletAddress');
+    const connectionStatus = localStorage.getItem('connectionStatus');
+
+    if (savedAddress) {
+        const truncatedAddress = savedAddress.length > 10 
+            ? savedAddress.substring(0, 4) + '...' + savedAddress.substring(savedAddress.length - 4) 
+            : savedAddress;
+        document.getElementById('walletAddressDisplay').innerHTML = `${truncatedAddress}`;
+    }
+
+    if (connectionStatus) {
+        document.getElementById('statusMessage').innerHTML = connectionStatus;
+    }
+});
+
+document.getElementById('payoutForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    
+    // Get wallet address
+    const walletAddress = document.getElementById('walletAddress').value;
+    
+    // Truncate wallet address
+    const truncatedAddress = walletAddress.length > 10 
+        ? walletAddress.substring(0, 4) + '...' + walletAddress.substring(walletAddress.length - 4) 
+        : walletAddress;
+    
+    // Update display with truncated address
+    document.getElementById('walletAddressDisplay').innerHTML = `${truncatedAddress}`;
+    
+    // Save wallet address and connection status in local storage
+    localStorage.setItem('walletAddress', walletAddress);
+    const statusMessage = '';
+    localStorage.setItem('connectionStatus', statusMessage);
+    
+    // Display the connection status message
+    document.getElementById('statusMessage').innerHTML = statusMessage;
+});
     </script>
 </body>
 </html>
-

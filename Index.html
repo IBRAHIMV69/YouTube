@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();
-    const validPromoCodes = ['11122', '11133', '11144', '11155', '11166'];
+    const validPromoCodes = ['111222', '11133', '11144', '11155', '11166'];
     const today = new Date().toDateString();
     const lastUsedDate = localStorage.getItem(`promo_${promoCode}_date`);
     
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'This code has already been used today.';
         } else {
-            updateBalance(200000);
+            updateBalance(100);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'Promo code applied successfully! $2.00 has been added to your balance.';
         }

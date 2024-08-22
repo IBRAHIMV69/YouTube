@@ -1,1239 +1,661 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>YouTube Video Tasks</title>
-
-    <style>
-
-        body {
-
-            font-family: 'Helvetica Neue', sans-serif;
-
-            background: radial-gradient(circle, #4a90e2, #09D260);
-
-            color: #f1f1f1;
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-        }
-
-        .balance {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 20px;
-
-            background: rgba(0, 0, 0, 0.5);
-
-            border-radius: 10px;
-
-            margin: 20px;
-
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-
-            font-size: 24px;
-
-            font-weight: bold;
-
-        }
-
-        .video-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-
-            gap: 20px;
-
-            padding: 20px;
-
-            justify-items: center;
-
-        }
-
-        .video-task {
-
-            border-radius: 12px;
-
-            overflow: hidden;
-
-            background: #09D260, #0033cc;
-
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-            position: relative;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            text-align: center;
-
-            max-width: 320px;
-
-        }
-
-        .video-task:hover {
-
-            transform: translateY(-10px);
-
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-
-        }
-
-        iframe {
-
-            border: none;
-
-            border-radius: 0 0 12px 12px;
-
-            width: 100%;
-
-            height: 180px;
-
-        }
-
-        .video-title {
-
-            font-size: 20px;
-
-            font-weight: bold;
-
-            margin: 16px;
-
-            color: #fff;
-
-        }
-
-        .lock-overlay {
-
-            position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            background: rgba(0, 0, 0, 0.8);
-
-            color: #fff;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 24px;
-
-            font-weight: bold;
-
-            border-radius: 12px;
-
-            visibility: hidden;
-
-            opacity: 0;
-
-            transition: opacity 0.3s ease;
-
-        }
-
-        .lock-overlay.visible {
-
-            visibility: visible;
-
-            opacity: 1;
-
-        }
-
-        .countdown {
-
-            margin-top: 16px;
-
-            font-size: 18px;
-
-        }
-
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Tasks</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background: radial-gradient(circle, #4a90e2, #09D260);
+            color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .balance {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
+        }
+        .video-task {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #09D260, #0033cc;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 320px;
+        }
+        .video-task:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
+        iframe {
+            border: none;
+            border-radius: 0 0 12px 12px;
+            width: 100%;
+            height: 180px;
+        }
+        .video-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 16px;
+            color: #fff;
+        }
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 12px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lock-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .countdown {
+            margin-top: 16px;
+            font-size: 18px;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="balance">
+        <p>$<span id="balance">1.00</span></p>
+    </div>
+    
+        <p></p>
 
-    <div class="balance">
+    <div class="video-grid">
+        <!-- Video 1 -->
+        <div class="video-task" id="videoTask1">
+            <div id="player1"></div>
+            <p class="video-title">$1.00</p>
+            <div class="lock-overlay" id="lockOverlay1">
+                <div>⏱️</div>
+                <div id="countdown1" class="countdown">00:00:00</div>
+            </div>
+        </div>
+        <!-- Video 2 -->
+        <div class="video-task" id="videoTask2">
+            <div id="player2"></div>
+            <p class="video-title">$1.00</p>
+            <div class="lock-overlay" id="lockOverlay2">
+                <div>⏱️</div>
+                <div id="countdown2" class="countdown">00:00:00</div>
+            </div>
+        </div>
+        <!-- Video 3 -->
+        <div class="video-task" id="videoTask3">
+            <div id="player3"></div>
+            <p class="video-title">$1.00</p>
+            <div class="lock-overlay" id="lockOverlay3">
+                <div>⏱️</div>
+                <div id="countdown3" class="countdown">00:00:00</div>
+            </div>
+        </div>
+    </div>
 
-        <p>$<span id="balance">1.00</span></p>
-
-    </div>
-
-    
-
-        <p></p>
-
-
-    <div class="video-grid">
-
-        <!-- Video 1 -->
-
-        <div class="video-task" id="videoTask1">
-
-            <div id="player1"></div>
-
-            <p class="video-title">$1.00</p>
-
-            <div class="lock-overlay" id="lockOverlay1">
-
-                <div>⏱️</div>
-
-                <div id="countdown1" class="countdown">00:00:00</div>
-
-            </div>
-
-        </div>
-
-        <!-- Video 2 -->
-
-        <div class="video-task" id="videoTask2">
-
-            <div id="player2"></div>
-
-            <p class="video-title">$1.00</p>
-
-            <div class="lock-overlay" id="lockOverlay2">
-
-                <div>⏱️</div>
-
-                <div id="countdown2" class="countdown">00:00:00</div>
-
-            </div>
-
-        </div>
-
-        <!-- Video 3 -->
-
-        <div class="video-task" id="videoTask3">
-
-            <div id="player3"></div>
-
-            <p class="video-title">$1.00</p>
-
-            <div class="lock-overlay" id="lockOverlay3">
-
-                <div>⏱️</div>
-
-                <div id="countdown3" class="countdown">00:00:00</div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!DOCTYPE html>
-
+    <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Payout Section</title>
-
-    <style>
-
-        .payout-section {
-
-            background: linear-gradient(135deg, #09D260, #0033cc);
-
-            padding: 40px;
-
-            border-radius: 20px;
-
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
-            max-width: 600px;
-
-            margin: 40px auto;
-
-            text-align: center;
-
-            color: #fff;
-
-        }
-
-        .payout-section h2 {
-
-            font-size: 28px;
-
-            font-weight: bold;
-
-            margin-bottom: 15px;
-
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-        }
-
-        .payout-section p {
-
-            font-size: 18px;
-
-            margin-bottom: 30px;
-
-            color: #dcdcdc;
-
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-        }
-
-        .payout-form a.button {
-
-            background: linear-gradient(135deg, #09D260, #0033cc);
-
-            color: #fff;
-
-            border: none;
-
-            border-radius: 10px;
-
-            padding: 15px 30px;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            text-decoration: none;
-
-            display: inline-block;
-
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-
-            transition: background 0.3s ease, transform 0.2s ease;
-
-            cursor: pointer;
-
-        }
-
-        .payout-form a.button:hover {
-
-            background: #0c85d0;
-
-            transform: translateY(-4px);
-
-        }
-
-        .error-message {
-
-            color: #ff4d4f;
-
-            font-size: 16px;
-
-            margin-top: 20px;
-
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-        }
-
-        /* Custom alert styling */
-
-        .custom-alert {
-
-            position: fixed;
-
-            top: 50%;
-
-            left: 50%;
-
-            transform: translate(-50%, -50%);
-
-            background-color: #058E41;
-
-            color: #fff;
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
-            z-index: 1000;
-
-            display: none;
-
-            text-align: center;
-
-        }
-
-        .custom-alert button {
-
-            background-color: #034F24;
-
-            color: #fff;
-
-            border: none;
-
-            border-radius: 5px;
-
-            padding: 10px 20px;
-
-            margin-top: 10px;
-
-            cursor: pointer;
-
-        }
-
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payout Section</title>
+    <style>
+        .payout-section {
+            background: linear-gradient(135deg, #09D260, #0033cc);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            color: #fff;
+        }
+        .payout-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .payout-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #dcdcdc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .payout-form a.button {
+            background: linear-gradient(135deg, #09D260, #0033cc);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .payout-form a.button:hover {
+            background: #0c85d0;
+            transform: translateY(-4px);
+        }
+        .error-message {
+            color: #ff4d4f;
+            font-size: 16px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        /* Custom alert styling */
+        .custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #058E41;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            text-align: center;
+        }
+        .custom-alert button {
+            background-color: #034F24;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Payout Section -->
+    <div class="payout-section">
+        <h2>AirDrop Keys</h2>
+        <p>Get key for visiting sites of advertisers.</p>
+        <form id="payoutForm" class="payout-form">
+            <!-- Link styled as a button -->
+            <a href="#" class="button" id="sendButton">Start viewing</a>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+    </div>
 
-    <!-- Payout Section -->
+    <!-- Custom Alert -->
+    <div id="customAlert" class="custom-alert">
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
 
-    <div class="payout-section">
+    <script>
+        // Initialize click count from localStorage
+        let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
 
-        <h2>AirDrop Keys</h2>
+        // Handle button click
+        document.getElementById('sendButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            
+            // Increment the click count and store it in localStorage
+            clickCount++;
+            localStorage.setItem('clickCount', clickCount);
+            
+            // Open the URL in a new tab
+            window.open('https://www.highratecpm.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586', '_blank');
+        });
 
-        <p>Get key for visiting sites of advertisers.</p>
+        // Show custom alert on page load
+        window.addEventListener('load', function() {
+            const count = localStorage.getItem('clickCount');
+            if (count) {
+                showAlert(`Button clicked ${count} times. Once you reach the required times, we will instantly send the key🔑 to your Airdrop`);
+            }
+        });
 
-        <form id="payoutForm" class="payout-form">
+        // Function to show custom alert
+        function showAlert(message) {
+            document.getElementById('alertMessage').innerText = message;
+            document.getElementById('customAlert').style.display = 'block';
+        }
 
-            <!-- Link styled as a button -->
-
-            <a href="#" class="button" id="sendButton">Start viewing</a>
-
-            <p id="errorMessage" class="error-message"></p>
-
-        </form>
-
-    </div>
-
-
-    <!-- Custom Alert -->
-
-    <div id="customAlert" class="custom-alert">
-
-        <p id="alertMessage"></p>
-
-        <button onclick="closeAlert()">OK</button>
-
-    </div>
-
-
-    <script>
-
-        // Initialize click count from localStorage
-
-        let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
-
-
-        // Handle button click
-
-        document.getElementById('sendButton').addEventListener('click', function(event) {
-
-            event.preventDefault(); // Prevent default link behavior
-
-            
-
-            // Increment the click count and store it in localStorage
-
-            clickCount++;
-
-            localStorage.setItem('clickCount', clickCount);
-
-            
-
-            // Open the URL in a new tab
-
-            window.open('https://www.highratecpm.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586', '_blank');
-
-        });
-
-
-        // Show custom alert on page load
-
-        window.addEventListener('load', function() {
-
-            const count = localStorage.getItem('clickCount');
-
-            if (count) {
-
-                showAlert(`Button clicked ${count} times. Once you reach the required times, we will instantly send the key🔑 to your Airdrop`);
-
-            }
-
-        });
-
-
-        // Function to show custom alert
-
-        function showAlert(message) {
-
-            document.getElementById('alertMessage').innerText = message;
-
-            document.getElementById('customAlert').style.display = 'block';
-
-        }
-
-
-        // Function to close custom alert
-
-        function closeAlert() {
-
-            document.getElementById('customAlert').style.display = 'none';
-
-        }
-
-    </script>
-
+        // Function to close custom alert
+        function closeAlert() {
+            document.getElementById('customAlert').style.display = 'none';
+        }
+    </script>
 </body>
-
 </html>
-
-    
-
-    <style>
-
-        body {
-
-            font-family: Arial, sans-serif;
-
-            background-color: #09D260;
-
-            color: #fff;
-
-            text-align: center;
-
-            padding: 20px;
-
-        }
-
-        
-
-        h1 {
-
-            color: #FFFFFF; /* Yellow color for title */
-
-        }
-
-        
-
-        p {
-
-            color: #ccc;
-
-        }
-
-        
-
-        input {
-
-            width: 80%;
-
-            margin: 10px auto;
-
-            padding: 10px;
-
-            font-size: 16px;
-
-            border: 1px solid #ccc;
-
-            border-radius: 5px;
-
-            background-color: #09D26;
-
-            color: #000;
-
-        }
-
-        
-
-        button {
-
-            padding: 10px 20px;
-
-            background-color: #09D26; /* Yellow background for button */
-
-            color: #000; /* Black text color for button */
-
-            border: none;
-
-            border-radius: 5px;
-
-            cursor: pointer;
-
-        }
-
-        
-
-        button:hover {
-
-            background-color: #fff; /* Darker yellow on hover */
-
-        }
-
-    </style>
-
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #09D260;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #FFFFFF; /* Yellow color for title */
+        }
+        
+        p {
+            color: #ccc;
+        }
+        
+        input {
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #09D26;
+            color: #000;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #09D26; /* Yellow background for button */
+            color: #000; /* Black text color for button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #fff; /* Darker yellow on hover */
+        }
+    </style>
 </head>
+<body>    
+    <h1>🎁 Friends!</h1>
+    
+    <p>Your referral will earn you huge prize. copy the link below and share it.</p>
+    
+    <input type="text" value="https://t.me/Sweet_earn_bot/referral/9687" id="inviteLink" aria-label="Invite link">
+    
+    <button onclick="copyLink()" aria-label="Copy invite link">Copy Link</button>
+    
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("inviteLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
 
-<body>    
-
-    <h1>🎁 Friends!</h1>
-
-    
-
-    <p>Your referral will earn you huge prize. copy the link below and share it.</p>
-
-    
-
-    <input type="text" value="https://t.me/Sweet_earn_bot/referral/9687" id="inviteLink" aria-label="Invite link">
-
-    
-
-    <button onclick="copyLink()" aria-label="Copy invite link">Copy Link</button>
-
-    
-
-    <script>
-
-        function copyLink() {
-
-            var copyText = document.getElementById("inviteLink");
-
-            copyText.select();
-
-            copyText.setSelectionRange(0, 99999);
-
-
-            navigator.clipboard.writeText(copyText.value).then(function() {
-
-                ("Link copied to clipboard: " + copyText.value);
-
-            }).catch(function(err) {
-
-                console.error("Failed to copy: ", err);
-
-            });
-
-        }
-
-    </script>
-
+            navigator.clipboard.writeText(copyText.value).then(function() {
+                ("Link copied to clipboard: " + copyText.value);
+            }).catch(function(err) {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
 </body>
-
 </html>
-
-     <style>
-
-    .payout-section {
-
-        background: linear-gradient(135deg, #09D260, #0033cc);
-
-        padding: 40px;
-
-        border-radius: 20px;
-
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
-        max-width: 600px;
-
-        margin: 40px auto;
-
-        text-align: center;
-
-        color: #fff;
-
-    }
-
-    .payout-section h2 {
-
-        font-size: 28px;
-
-        font-weight: bold;
-
-        margin-bottom: 30px;
-
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-    }
-
-    .payout-form label {
-
-        font-size: 18px;
-
-        display: block;
-
-        margin-bottom: 10px;
-
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-    }
-
-    .payout-form input[type="text"],
-
-    .payout-form select {
-
-        width: 80%;
-
-        padding: 12px;
-
-        margin-bottom: 20px;
-
-        border: none;
-
-        border-radius: 10px;
-
-        font-size: 16px;
-
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-    }
-
-    .payout-form input[type="text"]::placeholder {
-
-        color: #aaa;
-
-    }
-
-    .payout-form button {
-
-        background: linear-gradient(135deg, #09D260, #0033cc);
-
-        color: #fff;
-
-        border: none;
-
-        border-radius: 10px;
-
-        padding: 15px 30px;
-
-        font-size: 18px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-
-        transition: background 0.3s ease, transform 0.2s ease;
-
-    }
-
-    .payout-form button:hover {
-
-        background: #09D260;
-
-        transform: translateY(-4px);
-
-    }
-
-    .error-message {
-
-        color: #ff4d4f;
-
-        font-size: 16px;
-
-        margin-top: 20px;
-
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-    }
-
-    
-
-    /* Modal Styles */
-
-    .modal {
-
-        display: none;
-
-        position: fixed;
-
-        z-index: 1000;
-
-        left: 0;
-
-        top: 0;
-
-        width: 100%;
-
-        height: 100%;
-
-        background-color: rgba(0, 0, 0, 0.5);
-
-        justify-content: center;
-
-        align-items: center;
-
-    }
-
-    .modal-content {
-
-        background-color: #fff;
-
-        padding: 20px;
-
-        border-radius: 10px;
-
-        text-align: center;
-
-        max-width: 400px;
-
-        width: 90%;
-
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-
-    }
-
-    .modal-content p {
-
-        font-size: 18px;
-
-        color: #333;
-
-        margin-bottom: 20px;
-
-    }
-
-    .modal-content button {
-
-        background-color: #09D260;
-
-        color: #fff;
-
-        padding: 10px 20px;
-
-        border: none;
-
-        border-radius: 5px;
-
-        cursor: pointer;
-
-        font-size: 16px;
-
-    }
-
-    .modal-content button:hover {
-
-        background-color: #0c85d0;
-
-    }
-
+     <style>
+    .payout-section {
+        background: linear-gradient(135deg, #09D260, #0033cc);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 40px auto;
+        text-align: center;
+        color: #fff;
+    }
+    .payout-section h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .payout-form label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .payout-form input[type="text"],
+    .payout-form select {
+        width: 80%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .payout-form input[type="text"]::placeholder {
+        color: #aaa;
+    }
+    .payout-form button {
+        background: linear-gradient(135deg, #09D260, #0033cc);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .payout-form button:hover {
+        background: #09D260;
+        transform: translateY(-4px);
+    }
+    .error-message {
+        color: #ff4d4f;
+        font-size: 16px;
+        margin-top: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .modal-content p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .modal-content button {
+        background-color: #09D260;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .modal-content button:hover {
+        background-color: #0c85d0;
+    }
 </style>
 
-
 <!-- Payout Section -->
-
 <div class="payout-section">
-
-    <h2>Airdrop</h2>
-
-    <p class="balance">🔑<span id="balance">0</span></p>
-
-    <p>You must get key before you can withdrawal.</p>
-
-    <form id="payoutForm" class="payout-form">
-
-        <select id="payoutMethod" required>
-
-            <option value="" disabled selected>Select Payment Method</option>
-
-            <option value="USDT (TRC20)">USDT (TRC20)</option>
-
-            <option value="Litecoin (LTC)">Litecoin (LTC)</option>
-
-        </select>
-
-        <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
-
-        <button type="submit">Send request</button>
-
-        <p id="errorMessage" class="error-message"></p>
-
-    </form>
-
+    <h2>Airdrop</h2>
+    <p class="balance">🔑<span id="balance">0</span></p>
+    <p>You must get key before you can withdrawal.</p>
+    <form id="payoutForm" class="payout-form">
+        <select id="payoutMethod" required>
+            <option value="" disabled selected>Select Payment Method</option>
+            <option value="USDT (TRC20)">USDT (TRC20)</option>
+            <option value="Litecoin (LTC)">Litecoin (LTC)</option>
+        </select>
+        <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
+        <button type="submit">Send request</button>
+        <p id="errorMessage" class="error-message"></p>
+    </form>
 </div>
-
 
 <!-- Modal -->
-
 <div id="customModal" class="modal">
-
-    <div class="modal-content">
-
-        <p>You don't have any key. Go and earn a key to withdraw your balance.</p>
-
-        <button id="closeModal">OK</button>
-
-    </div>
-
+    <div class="modal-content">
+        <p>You don't have any key. Go and earn a key to withdraw your balance.</p>
+        <button id="closeModal">OK</button>
+    </div>
 </div>
 
-
 <script>
+    document.getElementById('payoutForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        // Show custom modal
+        document.getElementById('customModal').style.display = 'flex';
+    });
 
-    document.getElementById('payoutForm').addEventListener('submit', function(event) {
-
-        event.preventDefault(); // Prevent form submission
-
-        
-
-        // Show custom modal
-
-        document.getElementById('customModal').style.display = 'flex';
-
-    });
-
-
-    document.getElementById('closeModal').addEventListener('click', function() {
-
-        // Hide the modal
-
-        document.getElementById('customModal').style.display = 'none';
-
-    });
-
+    document.getElementById('closeModal').addEventListener('click', function() {
+        // Hide the modal
+        document.getElementById('customModal').style.display = 'none';
+    });
 </script>
-
-    <style>
-
-        .payout-section {
-
-            background: linear-gradient(135deg, #09D260, #0033cc);
-
-            padding: 40px;
-
-            border-radius: 20px;
-
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-
-            max-width: 600px;
-
-            margin: 40px auto;
-
-            text-align: center;
-
-            color: #fff;
-
-        }
-
-        .payout-section h2 {
-
-            font-size: 28px;
-
-            font-weight: bold;
-
-            margin-bottom: 15px;
-
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-        }
-
-        .payout-section p {
-
-            font-size: 18px;
-
-            margin-bottom: 30px;
-
-            color: #dcdcdc;
-
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-        }
-
-        .payout-form a.button {
-
-            background: #09D260, #0033cc; /* YouTube red */
-
-            color: #fff;
-
-            border: none;
-
-            border-radius: 10px;
-
-            padding: 15px 30px;
-
-            font-size: 18px;
-
-            font-weight: bold;
-
-            text-decoration: none;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-
-            transition: background 0.3s ease, transform 0.2s ease;
-
-            cursor: pointer;
-
-            margin-bottom: 20px; /* Added margin for spacing */
-
-        }
-
-        .payout-form a.button svg {
-
-            margin-right: 10px; /* Spacing between icon and text */
-
-        }
-
-        .payout-form a.button:hover {
-
-            transform: translateY(-4px);
-
-        }
-
-        .payout-form a.youtube-button:hover {
-
-            background: #0c85d0;
-
-        }
-
-        .payout-form a.telegram-button {
-
-            background: #09D260, #0033cc; /* Telegram blue */
-
-        }
-
-        .payout-form a.telegram-button:hover {
-
-            background: #0c85d0; /* Darker blue on hover */
-
-        }
-
-        .payout-form a.x-button {
-
-            background: #09D260, #0033cc; /* Twitter blue */
-
-        }
-
-        .payout-form a.x-button:hover {
-
-            background: #0c85d0; /* Darker blue on hover */
-
-        }
-
-        .error-message {
-
-            color: #ff4d4f;
-
-            font-size: 16px;
-
-            margin-top: 20px;
-
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-
-        }
-
-    </style>
-
-
-    <!-- Payout Section -->
-
-    <div class="payout-section">
-
-        <h2>Sweet Earn</h2>
-
-        <p>🎁</p>
-
-        <form id="payoutForm" class="payout-form">
-
-            <!-- YouTube Button -->
-
-            <a href="https://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzKhttps://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzK" class="button youtube-button">
-
-                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff">
-
-                    <path d="M19.615 3.184c-.862-.65-2.623-.918-5.56-.918h-3.909c-2.937 0-4.698.268-5.561.918-.863.65-1.322 1.707-1.322 3.621v7.377c0 1.914.459 2.97 1.322 3.621.863.65 2.623.918 5.561.918h3.909c2.937 0 4.698-.268 5.561-.918.863-.65 1.322-1.707 1.322-3.621v-7.377c0-1.914-.459-2.97-1.322-3.621zm-9.615 10.316v-7l6 3.5-6 3.5z"/>
-
-                </svg>
-
-                Subscribe Our YouTube Channel 
-
-            </a>
-
-            <!-- Telegram Button -->
-
-            <a href="https://t.me/Sweet_earn" class="button telegram-button">
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
-
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm5.34 8.484l-1.736 8.191c-.13.582-.472.724-1.006.45l-2.769-2.043-1.336 1.29c-.147.147-.271.271-.553.271l.198-2.808 5.105-4.59c.224-.198-.049-.309-.347-.111l-6.311 3.968-2.72-.85c-.591-.183-.604-.591.123-.874l10.625-4.08c.495-.183.927.111.765.874z"/>
-
-                </svg>
-
-                Join Our Telegram Channel 
-
-            </a>
-
-            <!-- X Button -->
-
-            <a href="https://x.com/SweetEearn?t=1MXDDiBSkjP2uMg3YAAe4A&s=09" class="button x-button">
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
-
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.408 17.25l-4.248-4.283-4.283 4.283-1.157-1.157 4.283-4.283-4.283-4.248 1.157-1.157 4.283 4.283 4.248-4.283 1.157 1.157-4.283 4.283 4.283 4.283-1.157 1.157z"/>
-
-                </svg>
-
-                Follow Our X Account 
-
-            </a>
-
-            <p id="errorMessage" class="error-message"></p>
-
-        </form>
-
-    </div>
-
+    <style>
+        .payout-section {
+            background: linear-gradient(135deg, #09D260, #0033cc);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            color: #fff;
+        }
+        .payout-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .payout-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #dcdcdc;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .payout-form a.button {
+            background: #09D260, #0033cc; /* YouTube red */
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            margin-bottom: 20px; /* Added margin for spacing */
+        }
+        .payout-form a.button svg {
+            margin-right: 10px; /* Spacing between icon and text */
+        }
+        .payout-form a.button:hover {
+            transform: translateY(-4px);
+        }
+        .payout-form a.youtube-button:hover {
+            background: #0c85d0;
+        }
+        .payout-form a.telegram-button {
+            background: #09D260, #0033cc; /* Telegram blue */
+        }
+        .payout-form a.telegram-button:hover {
+            background: #0c85d0; /* Darker blue on hover */
+        }
+        .payout-form a.x-button {
+            background: #09D260, #0033cc; /* Twitter blue */
+        }
+        .payout-form a.x-button:hover {
+            background: #0c85d0; /* Darker blue on hover */
+        }
+        .error-message {
+            color: #ff4d4f;
+            font-size: 16px;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+    <!-- Payout Section -->
+    <div class="payout-section">
+        <h2>Sweet Earn</h2>
+        <p>🎁</p>
+        <form id="payoutForm" class="payout-form">
+            <!-- YouTube Button -->
+            <a href="https://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzKhttps://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzK" class="button youtube-button">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M19.615 3.184c-.862-.65-2.623-.918-5.56-.918h-3.909c-2.937 0-4.698.268-5.561.918-.863.65-1.322 1.707-1.322 3.621v7.377c0 1.914.459 2.97 1.322 3.621.863.65 2.623.918 5.561.918h3.909c2.937 0 4.698-.268 5.561-.918.863-.65 1.322-1.707 1.322-3.621v-7.377c0-1.914-.459-2.97-1.322-3.621zm-9.615 10.316v-7l6 3.5-6 3.5z"/>
+                </svg>
+                Subscribe Our YouTube Channel 
+            </a>
+            <!-- Telegram Button -->
+            <a href="https://t.me/Sweet_earn" class="button telegram-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm5.34 8.484l-1.736 8.191c-.13.582-.472.724-1.006.45l-2.769-2.043-1.336 1.29c-.147.147-.271.271-.553.271l.198-2.808 5.105-4.59c.224-.198-.049-.309-.347-.111l-6.311 3.968-2.72-.85c-.591-.183-.604-.591.123-.874l10.625-4.08c.495-.183.927.111.765.874z"/>
+                </svg>
+                Join Our Telegram Channel 
+            </a>
+            <!-- X Button -->
+            <a href="https://x.com/SweetEearn?t=1MXDDiBSkjP2uMg3YAAe4A&s=09" class="button x-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.408 17.25l-4.248-4.283-4.283 4.283-1.157-1.157 4.283-4.283-4.283-4.248 1.157-1.157 4.283 4.283 4.248-4.283 1.157 1.157-4.283 4.283 4.283 4.283-1.157 1.157z"/>
+                </svg>
+                Follow Our X Account 
+            </a>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
+    </div>
 </html>
 
-
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const balanceElement = document.getElementById('balance');
 
-function loadBalance() {
-    const savedBalance = localStorage.getItem('balance');
-    return savedBalance ? parseFloat(savedBalance) : 0;
-}
-
-function saveBalance(balance) {
-    localStorage.setItem('balance', balance);
-}
-
-function updateBalance(amount) {
-    let currentBalance = loadBalance();
-    currentBalance += amount;
-    saveBalance(currentBalance);
-    balanceElement.textContent = currentBalance.toLocaleString();
-}
-
-function loadLockStatus(videoId) {
-    const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
-    const now = new Date().getTime();
-
-    if (unlockTime && now < parseInt(unlockTime)) {
-        document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-        startCountdown(parseInt(unlockTime), videoId);
-    }
-}
-
-function setLock(videoId) {
-    const now = new Date().getTime();
-    const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
-    localStorage.setItem(`lastWatched_${videoId}`, now);
-    localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
-    document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
-    startCountdown(unlockDate.getTime(), videoId);
-}
-
-function startCountdown(endTime, videoId) {
-    function updateTimer() {
-        const now = new Date().getTime();
-        const timeRemaining = endTime - now;
-
-        if (timeRemaining <= 0) {
-            document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
-            clearInterval(timerInterval);
-        } else {
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-            document.getElementById(`countdown${videoId}`).textContent = 
-                String(hours).padStart(2, '0') + ':' + 
-                String(minutes).padStart(2, '0') + ':' + 
-                String(seconds).padStart(2, '0');
+        function loadBalance() {
+            const savedBalance = localStorage.getItem('balance');
+            return savedBalance ? parseFloat(savedBalance) : 1.00;
         }
-    }
-    updateTimer(); // initial call
-    const timerInterval = setInterval(updateTimer, 1000);
-}
 
-function onYouTubeIframeAPIReady() {
-    const videoIds = ['soehOiZMzjs', 'anotherVideoId1', 'anotherVideoId2']; // Replace with actual video IDs
-    videoIds.forEach((videoId, index) => {
-        new YT.Player(`player${index + 1}`, {
-            height: '180',
-            width: '100%',
-            videoId: videoId,
-            events: {
-                'onStateChange': (event) => onPlayerStateChange(event, index + 1)
+        function saveBalance(balance) {
+            localStorage.setItem('balance', balance.toFixed(2));
+        }
+
+        function updateBalance(amount) {
+            let currentBalance = loadBalance();
+            currentBalance += amount;
+            saveBalance(currentBalance);
+            balanceElement.textContent = currentBalance.toFixed(2);
+        }
+
+        function loadLockStatus(videoId) {
+            const unlockTime = localStorage.getItem(`unlockTime_${videoId}`);
+            const now = new Date().getTime();
+
+            if (unlockTime && now < parseInt(unlockTime)) {
+                document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+                startCountdown(parseInt(unlockTime), videoId);
+            }
+        }
+
+        function setLock(videoId) {
+            const now = new Date().getTime();
+            const unlockDate = new Date(now + 22 * 60 * 60 * 1000); // 22 hours
+            localStorage.setItem(`lastWatched_${videoId}`, now);
+            localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
+            document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
+            startCountdown(unlockDate.getTime(), videoId);
+        }
+
+        function startCountdown(endTime, videoId) {
+            function updateTimer() {
+                const now = new Date().getTime();
+                const timeRemaining = endTime - now;
+
+                if (timeRemaining <= 0) {
+                    document.getElementById(`lockOverlay${videoId}`).classList.remove('visible');
+                    clearInterval(timerInterval);
+                } else {
+                    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                    document.getElementById(`countdown${videoId}`).textContent = 
+                        String(hours).padStart(2, '0') + ':' + 
+                        String(minutes).padStart(2, '0') + ':' + 
+                        String(seconds).padStart(2, '0');
+                }
+            }
+            updateTimer(); // initial call
+            const timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            const videoIds = ['PQtQz5t17eU', 'qzQvUKavtL0', 'ot4WNTK1ngY']; // Replace with actual video IDs
+            videoIds.forEach((videoId, index) => {
+                new YT.Player(`player${index + 1}`, {
+                    height: '180',
+                    width: '100%',
+                    videoId: videoId,
+                    events: {
+                        'onStateChange': (event) => onPlayerStateChange(event, index + 1)
+                    }
+                });
+            });
+        }
+
+        function onPlayerStateChange(event, videoIndex) {
+            if (event.data == YT.PlayerState.ENDED) {
+                // Video has ended
+                updateBalance(1.00);
+                setLock(videoIndex);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            balanceElement.textContent = loadBalance().toFixed(2);
+            for (let i = 1; i <= 3; i++) {
+                loadLockStatus(i);
             }
         });
-    });
-}
-
-function onPlayerStateChange(event, videoIndex) {
-    if (event.data == YT.PlayerState.ENDED) {
-        // Video has ended
-        updateBalance(400000);
-        setLock(videoIndex);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    balanceElement.textContent = loadBalance().toLocaleString();
-    for (let i = 1; i <= 3; i++) {
-        loadLockStatus(i);
-    }
-});
-
-      document.getElementById('applyPromoBtn').addEventListener('click', () => {
-    const promoCode = document.getElementById('promoCodeInput').value.trim();
-    const validPromoCodes = ['11122', '11133', '11144', '11155', '11166'];
-    const today = new Date().toDateString();
-    const lastUsedDate = localStorage.getItem(`promo_${promoCode}_date`);
-    
-    if (validPromoCodes.includes(promoCode)) {
-        if (lastUsedDate === today) {
-            document.getElementById('promoMessage').textContent = 'This code has already been used today.';
-        } else {
-            updateBalance(500000);
-            localStorage.setItem(`promo_${promoCode}_date`, today);
-            document.getElementById('promoMessage').textContent = 'Promo code applied successfully! $2.00 has been added to your balance.';
-        }
-    } else {
-        document.getElementById('promoMessage').textContent = 'Invalid promo code. Please try again.';
-    }
-    document.getElementById('promoCodeInput').value = '';
-});
-
-
-    </script>
-
+    </script>
 </body>
-
 </html>
-
 

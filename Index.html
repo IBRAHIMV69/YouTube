@@ -143,7 +143,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">🪙 200,000</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -152,7 +152,7 @@
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">🪙 200,000</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>⏱️</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -161,7 +161,7 @@
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">$1.00</p>
+            <p class="video-title">🪙 200,000</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>⏱️</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -693,7 +693,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(400000);
+        updateBalance(200000);
         setLock(videoIndex);
     }
 }
@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();
-    const validPromoCodes = ['111222', '11133', '11144', '11155', '11166'];
+    const validPromoCodes = ['CEO', '11133', '11144', '11155', '11166'];
     const today = new Date().toDateString();
     const lastUsedDate = localStorage.getItem(`promo_${promoCode}_date`);
     
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(500000);
+            updateBalance(300000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfully!.';
         }

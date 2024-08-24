@@ -713,14 +713,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (validPromoCodes.includes(promoCode)) {
         if (lastUsedDate === today) {
-            document.getElementById('promoMessage').textContent = 'This code has already been used today.';
+            document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(100);
+            updateBalance(500000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
-            document.getElementById('promoMessage').textContent = 'Promo code applied successfully! $2.00 has been added to your balance.';
+            document.getElementById('promoMessage').textContent = 'successfully!.';
         }
     } else {
-        document.getElementById('promoMessage').textContent = 'Invalid promo code. Please try again.';
+        document.getElementById('promoMessage').textContent = 'Invalid code.';
     }
     document.getElementById('promoCodeInput').value = '';
 });

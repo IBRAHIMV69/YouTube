@@ -376,78 +376,144 @@
         }
     </script>
 </body>
-    <</style>
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            background-color: #13132b;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-        }
+    .payout-section {
+        background: linear-gradient(135deg, #000, #09D260, #000);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        max-width: 600px;
+        margin: 40px auto;
+        text-align: center;
+        color: #fff;
+    }
+    .payout-section h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .payout-form label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .payout-form input[type="text"],
+    .payout-form select {
+        width: 80%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .payout-form input[type="text"]::placeholder {
+        color: #aaa;
+    }
+    .payout-form button {
+        background: linear-gradient(135deg, #000, #09D260, #000);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .payout-form button:hover {
+        background: #09D260;
+        transform: translateY(-4px);
+    }
+    .error-message {
+        color: #ff4d4f;
+        font-size: 16px;
+        margin-top: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .modal-content p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .modal-content button {
+        background-color: #09D260;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .modal-content button:hover {
+        background-color: #023016;
+    }
+</style>
 
-        .wallet-container {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(145deg, #1e1e4d, #151530);
-            border-radius: 15px;
-            padding: 20px;
-            width: 300px;
-            margin: 20px auto;
-            border: 1px solid #29295a;
-            box-shadow: 6px 6px 12px #0b0b1c, -6px -6px 12px #27276e;
-            transition: transform 0.3s ease;
-        }
+<!-- Payout Section -->
+<div class="payout-section">
+    <p class="balance">🔑<span id="balance">0</span></p>
+    <p>At least one key is required before you can make a withdrawal.</p>
+    <form id="payoutForm" class="payout-form">
+        <select id="payoutMethod" required>
+            <option value="" disabled selected>Select Payment Method</option>
+            <option value="USDT (TRC20)">USDT (TRC20)</option>
+            <option value="Litecoin (LTC)">Litecoin (LTC)</option>
+        </select>
+        <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
+        <button type="submit">Send request</button>
+        <p id="errorMessage" class="error-message"></p>
+    </form>
+</div>
 
-        .wallet-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 8px 8px 16px #0b0b1c, -8px -8px 16px #27276e;
-        }
-
-        .wallet-icon {
-            font-size: 45px;
-            color: #fff;
-            margin-right: 20px;
-        }
-
-        .wallet-content {
-            flex-grow: 1;
-        }
-
-        .wallet-title {
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }
-
-        .wallet-subtitle {
-            font-size: 15px;
-            color: #b3b3b3;
-            margin-top: 5px;
-        }
-
-        .lock-icon {
-            font-size: 25px;
-            color: #b3b3b3;
-        }
-    </style>
-    <title>Connect Wallet</title>
-</head>
-<body>
-
-    <div class="wallet-container">
-        <i class="fas fa-wallet wallet-icon"></i>
-        <div class="wallet-content">
-            <div class="wallet-title">Connect wallet</div>
-            <div class="wallet-subtitle">Coming Soon</div>
-        </div>
-        <i class="fas fa-lock lock-icon"></i>
+<!-- Modal -->
+<div id="customModal" class="modal">
+    <div class="modal-content">
+        <p>You don't have any key. Go and earn a key to withdraw your balance.</p>
+        <button id="closeModal">OK</button>
     </div>
+</div>
 
-</style> 
+<script>
+    document.getElementById('payoutForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        
+        // Show custom modal
+        document.getElementById('customModal').style.display = 'flex';
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        // Hide the modal
+        document.getElementById('customModal').style.display = 'none';
+    });
+</script>
+    <style>
 </html>
      
         .payout-section {
@@ -662,4 +728,5 @@ document.addEventListener('DOMContentLoaded', () => {
     </script>
 </body>
 </html>
+
 

@@ -709,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(300000);
+            updateBalance(5000000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfully!.';
         }

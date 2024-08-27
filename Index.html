@@ -267,12 +267,6 @@
         </form>
     </div>
 
-    <!-- Custom Alert -->
-    <div id="customAlert" class="custom-alert">
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()">OK</button>
-    </div>
-
     <script>
         // Initialize click count from localStorage
         let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
@@ -562,19 +556,19 @@
             transform: translateY(-4px);
         }
         .payout-form a.youtube-button:hover {
-            background: #023016;
+            background: #023016, #2C9BA2, #023016;
         }
         .payout-form a.telegram-button {
-            background: #09D260, #0033cc; /* Telegram blue */
+            background: #023016, #2C9BA2, #023016; /* Telegram blue */
         }
         .payout-form a.telegram-button:hover {
-            background: #023016; /* Darker blue on hover */
+            background: #023016, #2C9BA2, #023016; /* Darker blue on hover */
         }
         .payout-form a.x-button {
-            background: #09D260, #0033cc; /* Twitter blue */
+            background: #023016, #2C9BA2, #023016; /* Twitter blue */
         }
         .payout-form a.x-button:hover {
-            background: #023016; /* Darker blue on hover */
+            background: #023016, #2C9BA2, #023016; /* Darker blue on hover */
         }
         .error-message {
             color: #ff4d4f;

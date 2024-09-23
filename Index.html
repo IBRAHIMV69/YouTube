@@ -704,7 +704,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(1.00);
+        updateBalance(2000);
         setLock(videoIndex);
     }
 }
@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadLockStatus(i);
     }
     // Add 1.00 to balance when visiting the page
-    updateBalance(0.25);
+    updateBalance(100);
 });
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
@@ -735,7 +735,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(1.00);
+            updateBalance(10000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfull!';
         }

@@ -134,7 +134,7 @@
 </head>
 <body>
     <div class="balance">
-        <p>🪙<span id="balance">0</span></p>
+        <p>💎<span id="balance">0</span></p>
     </div>
     
         <p></p>
@@ -143,7 +143,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">200,000</p>
+            <p class="video-title">💎 +200</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -152,7 +152,7 @@
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">200,000</p>
+            <p class="video-title">💎 +200</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>⏱️</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -161,7 +161,7 @@
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">200,000</p>
+            <p class="video-title">💎 +200</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>⏱️</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -682,7 +682,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(200000);
+        updateBalance(200);
         setLock(videoIndex);
     }
 }
@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(5000000);
+            updateBalance(10000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfull!';
         }

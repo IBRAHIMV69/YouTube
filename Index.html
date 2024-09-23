@@ -35,7 +35,7 @@
         .video-task {
             border-radius: 12px;
             overflow: hidden;
-            background: #fff;
+            background: #2C9BA2, #000;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
@@ -59,7 +59,7 @@
             font-size: 20px;
             font-weight: bold;
             margin: 16px;
-            color: #000;
+            color: #fff;
         }
         .lock-overlay {
             position: absolute;
@@ -88,23 +88,6 @@
             margin-top: 16px;
             font-size: 18px;
         }
-        .button-link {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    background-color: #056E32;
-    border: none;
-    border-radius: 8px;
-    text-decoration: #000;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-link:hover {
-    background-color: #023016, #09D260, #023016;
-}
         .promo-section {
     display: flex;
     flex-direction: column;
@@ -151,7 +134,7 @@
 </head>
 <body>
     <div class="balance">
-        <p>💎<span id="balance">0</span></p>
+        <p>🪙<span id="balance">0</span></p>
     </div>
     
         <p></p>
@@ -160,7 +143,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">💎 1.00</a><a href="https://www.cpmrevenuegate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" class="button-link">Watch ads 💎 +</a>
+            <p class="video-title">200,000</p>
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
                 <div id="countdown1" class="countdown">00:00:00</div>
@@ -169,7 +152,7 @@
         <!-- Video 2 -->
         <div class="video-task" id="videoTask2">
             <div id="player2"></div>
-            <p class="video-title">💎1.00</a><a href="https://www.cpmrevenuegate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" class="button-link">Watch ads 💎 +</a>
+            <p class="video-title">200,000</p>
             <div class="lock-overlay" id="lockOverlay2">
                 <div>⏱️</div>
                 <div id="countdown2" class="countdown">00:00:00</div>
@@ -178,7 +161,7 @@
         <!-- Video 3 -->
         <div class="video-task" id="videoTask3">
             <div id="player3"></div>
-            <p class="video-title">💎 1.00</a><a href="https://www.cpmrevenuegate.com/yj516zqeuh?key=67623d7811021ba7d072604ff121c586" class="button-link">Watch ads 💎 +</a>
+            <p class="video-title">200,000</p>
             <div class="lock-overlay" id="lockOverlay3">
                 <div>⏱️</div>
                 <div id="countdown3" class="countdown">00:00:00</div>
@@ -489,10 +472,16 @@
 
 <!-- Payout Section -->
 <div class="payout-section">
-    <h2>Airdrop</h2>
-    <p class="balance">💎<span id="balance">0</span></p>
-    <p>Connect Wallet and more features coming soon...</p>
-        <button type="submit">Connect Wallet</button>
+    <p class="balance">🔑<span id="balance">0</span></p>
+    <p>At least one key is required before you can make a withdrawal.</p>
+    <form id="payoutForm" class="payout-form">
+        <select id="payoutMethod" required>
+            <option value="" disabled selected>Select Payment Method</option>
+            <option value="USDT (TRC20)">USDT (TRC20)</option>
+            <option value="Litecoin (LTC)">Litecoin (LTC)</option>
+        </select>
+        <input type="text" id="walletAddress" placeholder="Enter Your Wallet Address" required />
+        <button type="submit">Send request</button>
         <p id="errorMessage" class="error-message"></p>
     </form>
 </div>
@@ -652,7 +641,7 @@ function loadLockStatus(videoId) {
 
 function setLock(videoId) {
     const now = new Date().getTime();
-    const unlockDate = new Date(now + 0 * 00 * 00 * 1000); // 0 hours
+    const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
     localStorage.setItem(`lastWatched_${videoId}`, now);
     localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
     document.getElementById(`lockOverlay${videoId}`).classList.add('visible');
@@ -698,7 +687,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(2000);
+        updateBalance(200000);
         setLock(videoIndex);
     }
 }
@@ -708,15 +697,6 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= 3; i++) {
         loadLockStatus(i);
     }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    balanceElement.textContent = loadBalance().toFixed(2);
-    for (let i = 1; i <= 3; i++) {
-        loadLockStatus(i);
-    }
-    // Add 1.00 to balance when visiting the page
-    updateBalance(100);
 });
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
@@ -729,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(10000);
+            updateBalance(5000000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfull!';
         }

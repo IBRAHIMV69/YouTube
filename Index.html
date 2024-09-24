@@ -160,7 +160,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">💎 +200</a><a href="#" class="button" id="sendButton">Find Code</a>
+            <p class="video-title">💎 +200</a><a href="#" class="button" id="videoButton">Find Code</a>
             
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
@@ -292,7 +292,7 @@
         let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
 
         // Handle button click
-        document.getElementById('sendButton').addEventListener('click', function(event) {
+        document.getElementById('videoButton').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent default link behavior
             
             // Increment the click count and store it in localStorage

@@ -720,7 +720,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event, videoIndex) {
     if (event.data == YT.PlayerState.ENDED) {
         // Video has ended
-        updateBalance(200);
+        updateBalance(20);
         setLock(videoIndex);
     }
 }
@@ -732,9 +732,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-  document.getElementById('adsButton').addEventListener('click', function() {
-        updateBalance(100); // Add 100 coins to the balance when visiting the any button page
+  document.getElementById('adsaButton').addEventListener('click', function() {
+        updateBalance(5); // Add 5 coins to the balance when visiting the any button page
     });
+
+  document.getElementById('adsbButton').addEventListener('click', function() {
+        updateBalance(5); // Add 5 coins to the balance when visiting the any button page
+    });
+
+  document.getElementById('adscButton').addEventListener('click', function() {
+        updateBalance(5); // Add 5 coins to the balance when visiting the any button page
+    });
+        
+        
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();
@@ -746,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lastUsedDate === today) {
             document.getElementById('promoMessage').textContent = 'Already used.';
         } else {
-            updateBalance(10000);
+            updateBalance(1000);
             localStorage.setItem(`promo_${promoCode}_date`, today);
             document.getElementById('promoMessage').textContent = 'successfull!';
         }

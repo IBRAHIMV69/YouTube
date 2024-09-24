@@ -297,10 +297,10 @@
     <!-- Payout Section -->
     <div class="payout-section">
         <h2>Surfing</h2>
-        <p>Get paid for visiting sites of advertisers.</p>
+        <p>Get rewards for visiting sites of advertisers.</p>
         <form id="payoutForm" class="payout-form">
             <!-- Link styled as a button -->
-            <a href="#" class="button" id="sendButton">Find Code</a>
+            <a href="#" class="button" id="adsdButton">Start Viewing</a>
             <p id="errorMessage" class="error-message"></p>
         </form>
     </div>
@@ -743,8 +743,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('adscButton').addEventListener('click', function() {
         updateBalance(5); // Add 5 coins to the balance when visiting the any button page
     });
-        
-        
+
+  document.getElementById('adsdButton').addEventListener('click', function() {
+        updateBalance(5); // Add 5 coins to the balance when visiting the any button page
+    });   
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();

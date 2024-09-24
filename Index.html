@@ -756,6 +756,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('promoCodeInput').value = '';
 });
 
+// Handle button click
+        document.getElementById('videoButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+// Open the URL in a new tab
+            window.open('https://nainarh.netlify.app', '_blank');
+        });
+
     </script>
 </body>
 </html>

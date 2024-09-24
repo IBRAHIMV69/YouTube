@@ -178,7 +178,7 @@
         <!-- Video 1 -->
         <div class="video-task" id="videoTask1">
             <div id="player1"></div>
-            <p class="video-title">💎 +200</a><a href="#" id="videoButton" class="button-link">Ads 💎 +100</a>
+            <p class="video-title">💎 +200</a><a href="#" id="adsButton" class="button-link">Ads 💎 +100</a>
             
             <div class="lock-overlay" id="lockOverlay1">
                 <div>⏱️</div>
@@ -732,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-  document.getElementById('videoButton').addEventListener('click', function() {
+  document.getElementById('adsButton').addEventListener('click', function() {
         updateBalance(2000); // Add 2000 coins to the balance when visiting the any button page
     });
 
@@ -757,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Handle button click
-        document.getElementById('videoButton').addEventListener('click', function(event) {
+        document.getElementById('adsButton').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent default link behavior
 
 // Open the URL in a new tab

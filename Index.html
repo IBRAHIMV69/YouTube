@@ -674,7 +674,7 @@ function loadLockStatus(videoId) {
 
 function setLock(videoId) {
     const now = new Date().getTime();
-    const unlockDate = new Date(now + 2 * 60 * 60 * 1000); // 2 hours
+    const unlockDate = new Date(now + 0 * 02 * 60 * 1000); // 2 minutes 
     localStorage.setItem(`lastWatched_${videoId}`, now);
     localStorage.setItem(`unlockTime_${videoId}`, unlockDate.getTime());
     document.getElementById(`lockOverlay${videoId}`).classList.add('visible');

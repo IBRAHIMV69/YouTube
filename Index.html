@@ -631,7 +631,7 @@
                 Join Our Telegram Channel 
             </a>
             <!-- X Button -->
-            <a href="https://x.com/SweetEearn?t=1MXDDiBSkjP2uMg3YAAe4A&s=09" class="button x-button">
+            <a href="#" id="xButton"class="button x-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
                     <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.408 17.25l-4.248-4.283-4.283 4.283-1.157-1.157 4.283-4.283-4.283-4.248 1.157-1.157 4.283 4.283 4.248-4.283 1.157 1.157-4.283 4.283 4.283 4.283-1.157 1.157z"/>
                 </svg>
@@ -806,6 +806,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Open the URL in a new tab
             window.open('https://t.me/Sweet_earn', '_blank');
+        });
+
+// Handle button click
+        document.getElementById('xButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+// Open the URL in a new tab
+            window.open('https://x.com/SweetEearn?t=1MXDDiBSkjP2uMg3YAAe4A&s=09', '_blank');
         });
         
 

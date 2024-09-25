@@ -624,7 +624,7 @@
                 Subscribe Our YouTube Channel 
             </a>
             <!-- Telegram Button -->
-            <a href="https://t.me/Sweet_earn" class="button telegram-button">
+            <a href="#" id="telegramButton"class="button telegram-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
                     <path d="M12 0C5.373 0 0 5.373 0 12c0 6.627 5.373 12 12 12s12-5.373 12-12c0-6.627-5.373-12-12-12zm5.34 8.484l-1.736 8.191c-.13.582-.472.724-1.006.45l-2.769-2.043-1.336 1.29c-.147.147-.271.271-.553.271l.198-2.808 5.105-4.59c.224-.198-.049-.309-.347-.111l-6.311 3.968-2.72-.85c-.591-.183-.604-.591.123-.874l10.625-4.08c.495-.183.927.111.765.874z"/>
                 </svg>
@@ -798,6 +798,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Open the URL in a new tab
             window.open('https://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzKhttps://youtube.com/@moneyonlineiii?si=CLRTrDEZLVjASlzK', '_blank');
+        });
+
+// Handle button click
+        document.getElementById('telegramButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+// Open the URL in a new tab
+            window.open('https://t.me/Sweet_earn', '_blank');
         });
         
 

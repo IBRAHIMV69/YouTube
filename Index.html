@@ -750,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('applyPromoBtn').addEventListener('click', () => {
     const promoCode = document.getElementById('promoCodeInput').value.trim();
-    const validPromoCodes = ['CEO', '11133', '11144', '11155', '11166'];
+    const validPromoCodes = ['Abubakar', '11133', '11144', '11155', '11166'];
     const today = new Date().toDateString();
     const lastUsedDate = localStorage.getItem(`promo_${promoCode}_date`);
     
